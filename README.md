@@ -230,3 +230,8 @@ El carrusel incluye 39 tecnologías, con Angular y Azure. Los SVG se han obtenid
 
 Se han comprobado estructura y enlaces de las doce páginas, sintaxis JavaScript y los estados del menú táctil y del cambio entre vídeo y texto al cruzar el tamaño de tablet. La secuencia de portada sigue siendo imagen 8 s, vídeo completo e imagen 8 s. No se ha realizado renderizado en navegador ni prueba en dispositivos reales porque control-browser no está disponible; la adaptación no supone una garantía de compatibilidad perfecta con cualquier dispositivo.
 
+
+
+## Nueva tercera imagen: diseño de software
+
+La tercera escena usa ahora una interfaz web, una app móvil y módulos conectados sobre un fondo blanco perla con detalles azul cobalto y ámbar. El archivo assets/hero-services.png mantiene 1672 × 941 px, los 8 segundos de exposición y el montaje responsive. Se ha creado con la herramienta integrada de generación de imágenes; el prompt completo está en _source/hero-services-prompt.txt. La imagen se ha inspeccionado y las referencias se han comprobado; falta la revisión del montaje final en navegador.
