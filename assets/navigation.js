@@ -17,10 +17,10 @@
   let frame = 0;
 
   function setMenu(open, returnFocus = false) {
-    menuOpen = Boolean(open && compact && mobile.matches);
+    menuOpen = Boolean(open && mobile.matches);
     header.classList.toggle('menu-open', menuOpen);
     toggle.setAttribute('aria-expanded', String(menuOpen));
-    if (returnFocus && compact && mobile.matches) toggle.focus({preventScroll:true});
+    if (returnFocus && mobile.matches) toggle.focus({preventScroll:true});
   }
 
   function update() {
@@ -39,8 +39,8 @@
       else row.removeAttribute('aria-hidden');
     });
     if (!compact) {
-      setMenu(false);
-      if (focusInCompactControls) fullBrand.focus({preventScroll:true});
+      setMenu(false, mobile.matches && nav.contains(focused));
+      if (focusInCompactControls && !mobile.matches) fullBrand.focus({preventScroll:true});
     } else {
       if (focusInUpperRows) compactBrand.focus({preventScroll:true});
       if (mobile.matches && nav.contains(focused)) setMenu(true);
@@ -91,7 +91,7 @@
   });
   mobile.addEventListener('change', () => {
     const focused = document.activeElement;
-    if (mobile.matches && compact && nav.contains(focused)) setMenu(true);
+    if (mobile.matches && nav.contains(focused)) setMenu(true);
     else {
       setMenu(false);
       if (!mobile.matches && focused === toggle) nav.querySelector('a')?.focus({preventScroll:true});

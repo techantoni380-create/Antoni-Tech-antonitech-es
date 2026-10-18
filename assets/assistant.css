@@ -1,0 +1,46 @@
+/* Floating assistant: isolated styles, native dialog and no automatic opening. */
+.assistant-launch[hidden],.antoni-assistant [hidden]{display:none!important}
+.assistant-launch{position:fixed;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));z-index:45;display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:13px 20px;border:1px solid #55dfff8c;border-radius:999px;background:#0d141e;color:#fff;box-shadow:0 8px 32px #0008,0 0 24px #00d9ff12;font:600 13px/1.4 var(--body);cursor:pointer;transition:box-shadow .2s,border-color .2s}
+.assistant-launch svg{width:25px;height:25px;color:#6ce6ff;flex:none}
+.assistant-launch:hover{border-color:#7decff;box-shadow:0 8px 32px #0009,0 0 28px #00d9ff40}
+.antoni-assistant{position:fixed;inset:auto max(22px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) auto;width:410px;max-width:calc(100vw - 32px);height:650px;max-height:calc(100dvh - 44px);margin:0;padding:0;border:1px solid #33475b;border-radius:22px;background:#0b1018;color:#fff;box-shadow:0 28px 100px #000b;overflow:hidden;font:400 13px/1.65 var(--body);text-align:left;color-scheme:dark}
+.antoni-assistant::backdrop{background:#02071066}
+.assistant-shell{height:100%;display:flex;flex-direction:column;min-height:0}
+.assistant-heading{display:flex;align-items:center;gap:12px;flex:none;padding:20px;border-bottom:1px solid #ffffff16;background:linear-gradient(120deg,#112331,#14101f)}
+.assistant-avatar{display:grid;place-items:center;flex:none;width:43px;height:43px;border:1px solid #5ee5ff7d;border-radius:14px;font:700 18px/1 monospace;color:#7deaff;box-shadow:inset 0 0 18px #00d9ff12}
+.assistant-heading h2{font:700 16px/1.4 var(--body);letter-spacing:0;margin:0;color:#fff}
+.assistant-heading p{margin:3px 0 0;font-size:11px;color:#c5d1df}
+.assistant-close{margin-left:auto;align-self:center;width:44px;height:44px;border:1px solid #ffffff28;border-radius:50%;font:400 26px/1 var(--body);color:#fff;background:#ffffff05;cursor:pointer}
+.assistant-scroll{flex:1;min-height:60px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#405269 transparent;padding:20px}
+.assistant-messages{display:flex;flex-direction:column;gap:14px}
+.assistant-message{max-width:94%;padding:13px 15px;background:#161f2b;border:1px solid #ffffff12;border-radius:3px 15px 15px 15px;white-space:pre-wrap;overflow-wrap:anywhere;color:#e5ebf3;margin:0;font-size:13px;line-height:1.75}
+.assistant-message.is-user{align-self:flex-end;background:#11303c;border-color:#6adfff30;border-radius:15px 3px 15px 15px;color:#fff}
+.assistant-suggestions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.assistant-suggestions button{min-height:44px;padding:10px 12px;border:1px solid #364454;border-radius:10px;color:#e8f4fc;background:#ffffff03;text-align:left;font:500 11px/1.5 var(--body);cursor:pointer}
+.assistant-suggestions button:hover{color:#9eeeff;border-color:#66dcff;background:#00d9ff0a}
+.assistant-form{flex:none;padding:14px 20px 0;border-top:1px solid #ffffff16;margin:0;background:#0c121b}
+.assistant-input-label{display:block;margin:0 0 8px;font-size:11px;color:#d0d9e6}
+.assistant-compose{display:flex;align-items:center;gap:8px}
+.assistant-compose input{min-width:0;width:100%;height:48px;padding:12px;border:1px solid #3a4a5f;border-radius:10px;background:#121b27;color:#fff;font:400 16px/1.4 var(--body);margin:0}
+.assistant-compose input::placeholder{color:#9fadc1;opacity:1}
+.assistant-compose button{flex:none;width:46px;height:48px;border-radius:10px;border:1px solid #70dff4;background:#8deaff;color:#092431;font:700 24px/1 var(--body);cursor:pointer}
+.assistant-compose button:disabled{opacity:.55;cursor:wait}
+.assistant-status{min-height:18px;margin:4px 0 2px;color:#b2c3d8;font-size:10px;line-height:1.6}
+.assistant-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px;background:#0c121b;flex:none}
+.assistant-actions button{min-height:42px;font:600 11px/1.4 var(--body);color:#9beaff;cursor:pointer;border:0;background:none;padding:5px 0}
+.assistant-actions #assistant-reset{font-weight:400;color:#c4cedb}
+.assistant-footnote{display:flex;gap:8px;justify-content:space-between;align-items:start;padding:0 20px 16px;background:#0c121b;color:#9eabc0;font-size:9px;line-height:1.6;flex:none}
+.assistant-footnote a{color:#ced9e7;text-decoration:underline;text-underline-offset:3px;flex:none}
+.assistant-handoff{margin-top:16px;padding:16px;border:1px solid #d590ef70;border-radius:14px;background:#25182b}
+.assistant-handoff h3{font:600 14px/1.5 var(--body);margin:0 0 12px;color:#fff;letter-spacing:0}
+.assistant-handoff label{font-size:11px;display:block;margin-bottom:6px;color:#e5ccec}
+.assistant-handoff textarea{resize:vertical;max-height:220px;min-height:100px;width:100%;font:400 16px/1.6 var(--body);border:1px solid #78617f;border-radius:8px;padding:10px;margin:0 0 10px;background:#15121b;color:#fff}
+.assistant-primary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;padding:11px 13px;border-radius:8px;background:#fff;color:#15121b;font:700 11px/1.4 var(--body);text-decoration:none}
+.assistant-handoff p{font-size:10px;line-height:1.7;margin:10px 0 0;color:#d3bedb}
+.assistant-ai-notice{margin-top:10px}
+.assistant-ai-notice label{display:flex;gap:8px;align-items:start;font:400 10px/1.5 var(--body);color:#cbd5e2;margin:0}
+.assistant-ai-notice input{width:17px;height:17px;margin:2px 0 0;flex:none;accent-color:#71dcf5}
+.assistant-launch:focus-visible,.antoni-assistant :is(button,a,input,textarea):focus-visible{outline:2px solid #7ce8ff;outline-offset:3px}
+@media(max-width:760px){.assistant-launch{right:16px;bottom:max(16px,env(safe-area-inset-bottom));min-height:52px;padding:12px 15px;gap:9px;font-size:11px}.antoni-assistant{inset:auto 12px max(12px,env(safe-area-inset-bottom)) auto;width:calc(100vw - 24px);max-width:460px;max-height:calc(100dvh - 24px);height:650px;border-radius:18px}.assistant-heading{padding:15px 16px}.assistant-scroll{padding:16px}.assistant-form{padding-inline:16px}.assistant-actions{padding-inline:16px}.assistant-footnote{padding:0 16px 12px}}
+@media(max-height:520px){.assistant-heading{padding:8px 16px}.assistant-avatar{width:34px;height:34px}.assistant-form{padding-top:8px}.assistant-footnote{padding-bottom:6px}.assistant-suggestions{grid-template-columns:1fr 1fr}.antoni-assistant{max-height:calc(100dvh - 16px);bottom:8px}}
+@media(prefers-reduced-motion:reduce){.assistant-launch{transition:none}}

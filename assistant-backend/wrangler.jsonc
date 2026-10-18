@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "antoni-tech-assistant",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-18",
+  "observability": { "enabled": false },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://antonitech.es,https://www.antonitech.es,https://antoni-tech.techantoni380.chatgpt.site",
+    "OPENAI_MODEL": ""
+  },
+  "ratelimits": [
+    {"name":"CLIENT_LIMITER","namespace_id":"6359774841","simple":{"limit":8,"period":60}},
+    {"name":"GLOBAL_LIMITER","namespace_id":"6359774842","simple":{"limit":40,"period":60}}
+  ]
+}

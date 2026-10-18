@@ -189,3 +189,33 @@
 @media(prefers-reduced-motion:reduce){.footer-centered a,.footer-signature strong{transition:none}}
 
 .footer-signature .freelance-word{color:var(--cyan);font-weight:600}
+
+/* A clear active service, without moving its text or changing the page layout. */
+.service-details{padding-top:8px}
+.service-detail{--service-accent:var(--cyan);--service-glow:#08d9f424;--service-wash:#08d9f409;position:relative;min-width:0;grid-template-columns:44px minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,3vw,48px);padding:clamp(26px,3vw,46px);border:1px solid #29313d;border-radius:12px;background:#0b0f15;transition:border-color .22s ease,box-shadow .22s ease,background-color .22s ease;scroll-margin-top:calc(var(--nav-row-height,72px) + 24px)}
+.service-detail+.service-detail{margin-top:22px}
+.service-detail:nth-child(even){--service-accent:var(--pink);--service-glow:#f20aaa24;--service-wash:#f20aaa09}
+.service-detail>div{min-width:0}
+.service-detail h2{font-size:clamp(30px,3vw,49px);overflow-wrap:anywhere}
+.service-detail .text-link{color:var(--service-accent);border-color:var(--service-accent);min-height:44px;gap:16px;max-width:100%}
+.service-detail .text-link:focus-visible{outline:2px solid var(--service-accent);outline-offset:6px}
+.service-detail:focus-within{border-color:var(--service-accent);background:linear-gradient(120deg,var(--service-wash),transparent 75%),#0b0f15;box-shadow:0 0 0 1px var(--service-glow),0 0 30px var(--service-glow),inset 0 0 24px var(--service-wash)}
+.service-detail:focus-within .service-number{color:var(--service-accent)}
+.solution-card:focus-visible{box-shadow:0 0 24px var(--solution-tint)}
+@media(hover:hover){
+  .service-detail:hover{border-color:var(--service-accent);background:linear-gradient(120deg,var(--service-wash),transparent 75%),#0b0f15;box-shadow:0 0 0 1px var(--service-glow),0 0 30px var(--service-glow),inset 0 0 24px var(--service-wash)}
+  .service-detail:hover .service-number{color:var(--service-accent)}
+  .solution-card:hover{box-shadow:0 0 24px var(--solution-tint)}
+}
+@media(max-width:760px){
+  .service-detail{grid-template-columns:24px minmax(0,1fr);gap:18px;padding:25px 22px}
+  .service-detail>div:last-child{grid-column:2}
+  .service-detail h2{font-size:30px;line-height:1.08}
+  .service-detail .text-link{font-size:15px}
+}
+@media(max-width:420px){
+  .service-detail{grid-template-columns:20px minmax(0,1fr);column-gap:12px;padding:23px 18px}
+  .service-detail>div:last-child{grid-column:1/-1}
+  .service-detail h2{font-size:28px}
+}
+@media(prefers-reduced-motion:reduce){.service-detail{transition:none}}

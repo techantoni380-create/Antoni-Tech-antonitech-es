@@ -30,6 +30,12 @@
     "bytes": 2387
   },
   {
+    "slug": "angular",
+    "label": "Angular",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/angular/angular-plain.svg",
+    "bytes": 255
+  },
+  {
     "slug": "python",
     "label": "Python",
     "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-plain.svg",
@@ -106,6 +112,12 @@
     "label": "AWS",
     "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
     "bytes": 3755
+  },
+  {
+    "slug": "azure",
+    "label": "Azure",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-plain.svg",
+    "bytes": 798
   },
   {
     "slug": "zoho",

@@ -2,7 +2,7 @@
 
 Actualización del proyecto para GitHub Pages. Versión del 18 de octubre de 2026.
 
-**Antes de publicar:** las nuevas páginas Aviso legal, Política de privacidad y Política de cookies son borradores visibles, marcados como noindex y excluidos del sitemap. Deben completarse y validarse antes de usarlas como textos definitivos. El diseño del pie ya está terminado. Faltan la identificación legal completa, NIF y domicilio profesional; para privacidad y cookies, confirmar el tratamiento real, conservación, proveedores y tecnologías de terceros en el dominio publicado. No basta con retirar el aviso de borrador.
+**Pendiente de completar:** Aviso legal, Política de privacidad y Política de cookies mantienen campos por confirmar, noindex y exclusión del sitemap. El recuadro general de borrador se ha retirado a petición del propietario. Deben completarse y validarse antes de usarlas como textos definitivos. El diseño del pie ya está terminado. Faltan la identificación legal completa, NIF y domicilio profesional; para privacidad y cookies, confirmar el tratamiento real, conservación, proveedores y tecnologías de terceros en el dominio publicado. No basta con retirar el aviso de borrador.
 
 Incluye nueve páginas principales y tres borradores legales, español e inglés, cabecera metálica, brillo del logo cada dos segundos, cabecera con dos imágenes y un vídeo, lista de 21 vídeos en bucle, servicios, proyectos, redes sociales y contacto.
 
@@ -121,7 +121,7 @@ La portada crece con su contenido. La firma y los controles de la presentación 
 
 Inicio incluye los cuatro proyectos en una galería con flechas, contador y navegación mediante teclado. Se muestran dos por vista en escritorio y uno en móvil. La galería no avanza automáticamente; las webs de ALMAZARA y Todos con Hernán mantienen su navegación y la opción Ampliar. Studi1 aparece identificado como diseño en desarrollo. El enlace «Creemos el tuyo» abre WhatsApp.
 
-Los seis servicios se presentan con iconos, beneficios y enlaces a su información completa. Se conservan los idiomas español e inglés.
+Los nueve servicios se presentan con iconos, beneficios y enlaces a su información completa. Se conservan los idiomas español e inglés.
 
 
 ## Proceso y consulta gratuita
@@ -163,7 +163,7 @@ El bloque final presenta «Tu idea merece un proyecto a su altura» en una compo
 
 La marca, el lema, la firma profesional, los enlaces legales, las redes y el cierre están centrados. La firma «Yonathan Alvarado · Freelance Full Stack Developer · Spain» enlaza a Instagram. En móvil, la firma se organiza en tres líneas y los enlaces legales en dos columnas. Los enlaces legales llevan a /aviso-legal/, /privacidad/ y /cookies/ de Antoni Tech, nunca a Almazara. Contacto abre la página de contacto propia.
 
-Los tres documentos son borradores bilingües para revisión. Incluyen solo información conocida y señalan lo pendiente; no certifican el cumplimiento legal. El apartado de cookies reconoce las vistas web externas y no afirma que toda la web esté libre de cookies. Mantener los avisos de borrador y noindex hasta completar la revisión.
+Los tres documentos son borradores bilingües para revisión. Incluyen solo información conocida y señalan lo pendiente; no certifican el cumplimiento legal. El apartado de cookies reconoce las vistas web externas y no afirma que toda la web esté libre de cookies. Mantener noindex hasta completar la revisión; el recuadro general de borrador se ha retirado a petición del propietario.
 
 La firma destaca Freelance en cian. La portada, la biografía y Sobre mí presentan a Yonathan como desarrollador Full Stack freelance y explican que el cliente trabaja directamente con él.
 
@@ -190,3 +190,43 @@ El vídeo está optimizado a 1920×1080, 24 fps, conservando su duración comple
 Studi1 utiliza el logo oficial facilitado por el cliente, con sus proporciones originales, tanto en las tarjetas como en la ficha del proyecto. El estado continúa siendo diseño en desarrollo.
 
 Comprobación realizada: secuencia 8 s → final real del vídeo → 8 s, repetición, pausa y reanudación, visibilidad, sonido, recuperación del bloqueo de reproducción y enlaces. La prueba visual y de reproducción en navegador sigue pendiente.
+
+## Servicios ampliados, sin categorías duplicadas
+
+Inicio presenta nueve servicios: web, tiendas online, apps y software, academias online, CRM y automatización, dominio/hosting/correo, mantenimiento web, sistemas y soporte IT y asesoramiento digital. La página Servicios desarrolla cada apartado y el formulario de contacto permite seleccionar cualquiera de ellos. Las landing pages y rediseños pertenecen a Web; las migraciones de tiendas y conexiones ERP se explican en Tiendas online.
+
+Academias online se ofrece como creación de plataformas para clientes: cursos, alumnos, evaluaciones, seguimiento y formación de uso con Moodle. No anuncia una academia propia ni cursos ya disponibles. El asesoramiento inicial es gratuito y el trabajo posterior se define en una propuesta. Las integraciones dependen de compatibilidad y alcance. Todos los textos nuevos incluyen español e inglés.
+
+Se mantienen las doce páginas existentes, los proyectos, la cabecera y sus tiempos de reproducción. Comprobación: enlaces internos, recursos, anclas y formularios; revisión visual en navegador pendiente.
+
+## Perfil, interacción y presentación legal
+
+El perfil de Inicio, Sobre mí y la firma del pie identifican a Yonathan como desarrollador full stack y diseñador gráfico freelance. Sobre mí incorpora la titulación de Técnico Superior en Higiene Bucodental y la experiencia en clínica, sin presentar servicios sanitarios.
+
+Los nueve servicios tienen contorno y resplandor cian/fucsia al pasar el ratón o enfocar sus enlaces con teclado. Sus acciones son específicas para cada servicio y conservan la selección automática en el formulario. La animación respeta el movimiento reducido.
+
+Por petición del propietario se ha retirado el recuadro general «Borrador para revisión» de las tres páginas legales. Eso no convierte los textos en definitivos: se mantienen los datos pendientes de identificación y revisión de privacidad y cookies, así como noindex y la exclusión del sitemap. Se ha explicitado la actividad freelance usando únicamente los datos facilitados. Para completar la identificación faltan nombre legal completo, NIF y domicilio; la revisión de proveedores, conservación y tecnologías de terceros sigue pendiente.
+
+Referencias de revisión: https://www.boe.es/buscar/act.php?id=BOE-A-2002-13758#a10 ; https://www.aepd.es/guias/guia-modelo-clausula-informativa.pdf ; https://www.aepd.es/guias/guia-cookies.pdf . Comprobados estructura, enlaces, recursos, traducciones y formularios. La revisión visual en navegador continúa pendiente.
+
+
+## Asistente virtual
+
+Todas las páginas incorporan un asistente flotante en español e inglés. Actualmente utiliza una guía local de respuestas sobre servicios, tecnologías y proyectos: no se presenta como una IA activa. El visitante puede escribir consultas, usar preguntas sugeridas, borrar el chat y preparar un mensaje editable para WhatsApp. Solo incluye sus tres últimas consultas; las respuestas del asistente no se trasladan como afirmaciones del visitante. No se guardan conversaciones al recargar o cambiar de página.
+
+El diseño usa un diálogo nativo con cierre, teclado y adaptación móvil. Las respuestas se insertan como texto seguro. No se abre automáticamente ni envía mensajes por sí mismo. `_source/assistant_markup.py` contiene la estructura; los archivos `assets/assistant*` contienen los estilos, interacción y conocimiento generado desde los servicios publicados.
+
+La conexión real de IA está preparada en `assistant-backend/`, con instrucciones de activación, controles de uso y pruebas. Requiere desplegar el servidor, elegir un modelo, configurar una clave privada y actualizar la información de privacidad. No hay clave, backend desplegado ni cargos de API en esta entrega. El endpoint público permanece vacío. El código del servidor nunca debe contener claves literales.
+
+Validación: once pruebas de guía/contacto y backend con proveedor simulado, comprobaciones de las doce páginas y sintaxis. La IA no se ha probado contra un proveedor real y la revisión visual en navegador sigue pendiente.
+
+
+
+## Carrusel y adaptación a dispositivos
+
+El carrusel incluye 39 tecnologías, con Angular y Azure. Los SVG se han obtenido del mismo conjunto Devicon que los demás logotipos; sus URLs constan en `assets/technologies/sources.json`. Los iconos y nombres se muestran en blanco puro (#fff), también al pasar el ratón. El brillo cian/fucsia queda en los bordes de la franja. Los dos grupos idénticos permiten el desplazamiento continuo sin pausa al interactuar.
+
+`assets/responsive.css`, cargado al final, adapta las doce páginas. Hasta 960 px aparece el menú táctil tanto al inicio como durante el scroll, la cabecera separa imagen/vídeo y texto, y la galería muestra un proyecto con las flechas debajo. Las rejillas se reorganizan a 1100/960/600/420 px; los formularios, tarjetas, enlaces y textos tienen límites de anchura. Se contemplan los márgenes seguros del dispositivo y pantallas horizontales de poca altura. El asistente reduce su botón en móvil y ajusta su ventana al área visible cuando aparece el teclado.
+
+Se han comprobado estructura y enlaces de las doce páginas, sintaxis JavaScript y los estados del menú táctil y del cambio entre vídeo y texto al cruzar el tamaño de tablet. La secuencia de portada sigue siendo imagen 8 s, vídeo completo e imagen 8 s. No se ha realizado renderizado en navegador ni prueba en dispositivos reales porque control-browser no está disponible; la adaptación no supone una garantía de compatibilidad perfecta con cualquier dispositivo.
+

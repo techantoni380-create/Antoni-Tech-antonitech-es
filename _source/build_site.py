@@ -4,6 +4,7 @@ import json
 from hashlib import sha256
 import re
 from urllib.parse import quote, urlsplit, urlunsplit
+from assistant_markup import assistant_markup
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT
@@ -52,7 +53,7 @@ def footer():
     return f'''<footer class="site-footer footer-centered"><div class="footer-inner">
       <a href="/" class="brand footer-brand" aria-label="Antoni Tech · Inicio / Home">{logo()}</a>
       {t('Diseño con intención. Tecnología con propósito.','Design with intention. Technology with purpose.','p','footer-motto')}
-      <a class="footer-signature" href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer"><strong>Yonathan Alvarado</strong><span aria-hidden="true">·</span><span><strong class="freelance-word">Freelance</strong> Full Stack Developer</span><span aria-hidden="true">·</span><span>Spain</span></a>
+      <a class="footer-signature" href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer"><strong>Yonathan Alvarado</strong><span aria-hidden="true">·</span><span><strong class="freelance-word">Freelance</strong> Full Stack Developer &amp; Graphic Designer</span><span aria-hidden="true">·</span><span>Spain</span></a>
       <nav class="footer-legal" aria-label="Información legal y contacto / Legal information and contact"><ul>{links}</ul></nav>
       <nav class="footer-socials" aria-label="Redes sociales / Social profiles"><a href="{LINKEDIN}" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a><a href="{GITHUB}" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></nav>
       <div class="footer-closing"><p>© 2026 Antoni Tech · {t('Todos los derechos reservados.','All rights reserved.')}</p>{t('Desde Reus, para proyectos sin fronteras.','From Reus, for projects without borders.','p')}<a href="#top" class="footer-top">{t('Volver arriba','Back to top')} <span aria-hidden="true">↑</span></a></div>
@@ -60,14 +61,15 @@ def footer():
 
 LEGAL_PAGES=[
     ('aviso-legal','Aviso legal','Legal notice','Información sobre Antoni Tech.','Information about Antoni Tech.',[
-        ('El proyecto','The business','Antoni Tech es el proyecto de desarrollo web, software y servicios tecnológicos de Yonathan Alvarado, con base en Reus, España.','Antoni Tech is Yonathan Alvarado’s web development, software and technology services business, based in Reus, Spain.'),
-        ('Identificación del titular','Owner identification','Pendiente de confirmar el nombre legal completo o razón social, el NIF y el domicilio profesional del titular. Estos datos deben incorporarse antes de publicar la versión definitiva.','The owner’s full legal name or company name, tax identification number and business address remain to be confirmed. These details must be added before publishing the final version.'),
+        ('El proyecto','The business','Antoni Tech es el proyecto profesional de Yonathan Alvarado, desarrollador web full stack y diseñador gráfico freelance. Desde Reus, España, ofrece diseño, desarrollo de software y servicios tecnológicos para emprendedores y empresas.','Antoni Tech is the professional project of Yonathan Alvarado, a freelance full-stack web developer and graphic designer. Based in Reus, Spain, he provides design, software development and technology services for entrepreneurs and businesses.'),
+        ('Identificación del titular','Owner identification','Yonathan Alvarado · Profesional freelance · Antoni Tech. Base de actividad: Reus, Tarragona, España. Contacto: techantoni380@gmail.com · +34 635 977 484. La identificación debe completarse con el nombre legal completo, NIF y domicilio profesional del titular.','Yonathan Alvarado · Freelance professional · Antoni Tech. Based in Reus, Tarragona, Spain. Contact: techantoni380@gmail.com · +34 635 977 484. Identification must be completed with the owner’s full legal name, tax identification number and business address.'),
         ('Proyectos y recursos','Projects and resources','El portfolio identifica los proyectos publicados y los diseños en desarrollo. Los nombres, marcas y recursos de terceros pertenecen a sus respectivos titulares. Los sitios enlazados tienen sus propias condiciones.','The portfolio identifies published projects and designs in development. Third-party names, brands and resources belong to their respective owners. Linked websites have their own terms.'),
         ('Propuestas de trabajo','Project proposals','La consulta y el asesoramiento inicial son gratuitos y personalizados. El alcance, las entregas, los plazos y el precio de cada encargo se acuerdan en una propuesta específica.','The initial consultation and advice are free and personalised. The scope, deliverables, timeline and price of each project are agreed in a separate proposal.')
     ]),
     ('privacidad','Política de privacidad','Privacy policy','Información sobre los canales de contacto de esta web.','Information about this website’s contact channels.',[
-        ('Responsable y contacto','Controller and contact','La identificación legal completa del responsable está pendiente de confirmación. El contacto del proyecto es Yonathan Alvarado, Antoni Tech, a través de techantoni380@gmail.com.','The controller’s full legal identification remains to be confirmed. The project contact is Yonathan Alvarado, Antoni Tech, at techantoni380@gmail.com.'),
+        ('Responsable y contacto','Controller and contact','La identificación legal completa del responsable está pendiente de confirmación. El contacto del proyecto es Yonathan Alvarado, profesional freelance bajo la marca Antoni Tech, a través de techantoni380@gmail.com.','The controller’s full legal identification remains to be confirmed. The project contact is Yonathan Alvarado, a freelance professional working under the Antoni Tech brand, at techantoni380@gmail.com.'),
         ('Cómo funciona el formulario','How the form works','El formulario prepara un mensaje con tu nombre, correo, servicio e idea de proyecto. No lo envía a un servidor propio ni lo almacena en esta web: eliges correo o WhatsApp y confirmas el envío en esa aplicación. Al enviarlo, la información llega al canal elegido.','The form prepares a message with your name, email, service and project idea. It does not send it to an own server or store it on this website: you choose email or WhatsApp and confirm sending in that app. Once sent, the information reaches the selected channel.'),
+        ('Asistente de servicios','Service assistant','El asistente funciona actualmente con respuestas preparadas en tu navegador, sin conexión a una IA externa. La conversación se mantiene solo en la memoria de esta página: se elimina al borrarla, recargar o navegar a otra página. El asistente no guarda el chat en cookies ni en almacenamiento local. Si eliges contactar con Yonathan, puedes revisar el texto antes de abrir WhatsApp; al abrir ese enlace, el texto se comunica a WhatsApp y tú confirmas su envío. No incluyas contraseñas ni datos sensibles.','The assistant currently uses prepared answers in your browser, without an external AI connection. The conversation stays only in this page’s memory and is cleared when you clear it, reload or visit another page. The assistant does not save chat in cookies or local storage. If you choose to contact Yonathan, you can review the text before opening WhatsApp; opening that link shares the text with WhatsApp and you confirm sending it. Do not include passwords or sensitive data.'),
         ('Finalidad prevista','Intended purpose','Los mensajes se utilizan para atender consultas y preparar propuestas solicitadas. Si se contrata un proyecto, será necesario concretar el tratamiento de datos vinculado al servicio.','Messages are used to answer enquiries and prepare requested proposals. If a project is commissioned, the processing of data related to the service will need to be specified.'),
         ('Servicios externos','External services','Los enlaces a redes sociales, correo y WhatsApp abren servicios externos. Las vistas de ALMAZARA y Todos con Hernán integran sus sitios dentro del portfolio y pueden comunicar datos de navegación a esos proveedores.','Social, email and WhatsApp links open external services. The ALMAZARA and Todos con Hernán previews embed their websites in the portfolio and may communicate browsing data to those providers.'),
         ('Información pendiente de completar','Information still to be completed','Antes de publicar este documento deben confirmarse las bases jurídicas aplicables, los plazos de conservación, los proveedores y transferencias, y el procedimiento para ejercer los derechos de protección de datos. Para cualquier consulta, escribe al correo indicado.','Before publishing this document, the applicable legal bases, retention periods, providers and transfers, and the process for exercising data protection rights must be confirmed. For questions, use the email above.')
@@ -83,7 +85,7 @@ LEGAL_PAGES=[
 def legal_page(item):
     slug,title_es,title_en,desc_es,desc_en,sections=item
     body=''.join('<section class="legal-section">'+t(es,en,'h2')+t(de,dn,'p')+'</section>' for es,en,de,dn in sections)
-    return f'''<article class="legal-document wrap"><header class="legal-heading">{t('ANTONI TECH · INFORMACIÓN','ANTONI TECH · INFORMATION','p','eyebrow')}{t(title_es,title_en,'h1')}{t(desc_es,desc_en,'p','legal-intro')}</header><aside class="legal-draft">{t('Borrador para revisión','Draft for review','strong')}{t('Pendiente de completar y validar antes de su publicación como documento definitivo. Versión de trabajo: 18 de octubre de 2026.','To be completed and validated before publication as a final document. Working version: 18 October 2026.','p')}</aside>{body}<div class="legal-contact">{t('Contacto de Antoni Tech','Antoni Tech contact','h2')}<a href="mailto:{EMAIL}">{EMAIL}</a><a href="tel:+34635977484">+34 635 977 484</a></div></article>'''
+    return f'''<article class="legal-document wrap"><header class="legal-heading">{t('ANTONI TECH · INFORMACIÓN','ANTONI TECH · INFORMATION','p','eyebrow')}{t(title_es,title_en,'h1')}{t(desc_es,desc_en,'p','legal-intro')}</header>{body}<div class="legal-contact">{t('Contacto de Antoni Tech','Antoni Tech contact','h2')}<a href="mailto:{EMAIL}">{EMAIL}</a><a href="tel:+34635977484">+34 635 977 484</a></div></article>'''
 
 def cta():
     return f'''<section class="cta-section cta-premium wrap" aria-labelledby="project-invitation-title"><div class="cta-panel">
@@ -130,21 +132,148 @@ def project_browser(p):
     <div class="browser-footer"><span>{t('Navega por la web aquí.','Explore the website here.')}</span><a href="{p['url']}" target="_blank" rel="noopener noreferrer">{t('Abrir web','Open website')} ↗</a></div>
     </dialog></div>'''
 
-SERVICES=[
- ('web','DISEÑO Y DESARROLLO WEB','WEB DESIGN & DEVELOPMENT','Una web que explique quién eres y convierta el interés en contacto.','A website that explains who you are and turns interest into contact.','Webs corporativas, páginas de servicio y landing pages con diseño a medida, navegación clara y adaptación a todos los dispositivos.','Business websites, service pages and landing pages with custom design, clear navigation and layouts for every device.',['Diseño UI / UX','Frontend y backend','Accesibilidad y rendimiento'],['UI / UX design','Frontend & backend','Accessibility & performance']),
- ('ecommerce','TIENDAS ONLINE','ONLINE STORES','Tu catálogo, preparado para dar el siguiente paso.','Your catalogue, ready for the next step.','Tiendas con WordPress y WooCommerce. Organización de productos, configuración del proceso de compra e integración de los servicios acordados.','Stores built with WordPress and WooCommerce. Product organisation, checkout configuration and integration of agreed services.',['WordPress / WooCommerce','Catálogo y fichas de producto','Configuración de pagos y envíos'],['WordPress / WooCommerce','Catalogue & product pages','Payment & shipping setup']),
- ('apps','SOFTWARE Y APLICACIONES MÓVILES','SOFTWARE & MOBILE APPLICATIONS','Herramientas creadas alrededor de tu forma de trabajar.','Tools built around the way you work.','Desarrollo de aplicaciones web y móviles, software a medida, paneles internos y conexiones mediante APIs. Definimos las funciones, los dispositivos y las plataformas que necesita cada proyecto.','Web and mobile application development, custom software, internal dashboards and API integrations. We define the features, devices and platforms each project needs.',['Aplicaciones web y software a medida','Apps móviles: Android e iOS según alcance','APIs, bases de datos e integraciones'],['Web applications & custom software','Mobile apps: Android and iOS as scoped','APIs, databases & integrations']),
- ('automatizacion','CRM Y AUTOMATIZACIÓN','CRM & AUTOMATION','Menos tareas repetidas. Más tiempo para tu negocio.','Fewer repetitive tasks. More time for your business.','Analizamos cómo gestionas clientes y tareas para conectar herramientas y simplificar procesos. Integraciones con CRM, incluido Zoho, según el alcance del proyecto.','We review how you manage customers and tasks to connect tools and simplify processes. CRM integrations, including Zoho, depending on project scope.',['Revisión de procesos','Conexión entre herramientas','Flujos de trabajo digitales'],['Process review','Tool connections','Digital workflows']),
- ('mantenimiento','MANTENIMIENTO WEB','WEBSITE MAINTENANCE','La web también necesita atención después del lanzamiento.','Your website needs care after launch, too.','Actualizaciones, copias de seguridad, revisión de incidencias y mejoras de rendimiento. El mantenimiento se define según tu plataforma y tus necesidades.','Updates, backups, issue reviews and performance improvements. Maintenance is scoped around your platform and your needs.',['Actualizaciones y copias','Revisión de seguridad','Mejoras y soporte'],['Updates & backups','Security review','Improvements & support']),
- ('sistemas','SISTEMAS Y SOPORTE IT','SYSTEMS & IT SUPPORT','La tecnología de tu día a día, bien conectada.','Your everyday technology, properly connected.','Configuración y mantenimiento de equipos, redes locales y sistemas. Soporte remoto o presencial en Reus y alrededores, según el servicio.','Computer, local network and system setup and maintenance. Remote support or on-site support in and around Reus, depending on the service.',['Windows, Linux y macOS','Equipos y redes locales','Servidores y servicios en red'],['Windows, Linux & macOS','Computers & local networks','Servers & network services'])
-]
+SERVICES = [('web',
+  'DISEÑO Y DESARROLLO WEB',
+  'WEB DESIGN & DEVELOPMENT',
+  'Una web que explique quién eres y convierta el interés en contacto.',
+  'A website that explains who you are and turns interest into contact.',
+  'Webs corporativas, blogs, portfolios y landing pages con diseño a medida. Creamos tu primera web o renovamos la que '
+  'ya tienes, con navegación clara y adaptación a todos los dispositivos.',
+  'Custom business websites, blogs, portfolios and landing pages. We build your first website or refresh your existing '
+  'one, with clear navigation and layouts for every device.',
+  ['Diseño UI/UX y desarrollo frontend y backend',
+   'Landing pages y conexión con formularios o CRM',
+   'Rediseño, accesibilidad y rendimiento'],
+  ['UI/UX design and frontend and backend development',
+   'Landing pages connected to forms or a CRM',
+   'Redesign, accessibility and performance']),
+ ('ecommerce',
+  'TIENDAS ONLINE',
+  'ONLINE STORES',
+  'Tu catálogo, preparado para dar el siguiente paso.',
+  'Your catalogue, ready for the next step.',
+  'Creamos o renovamos tu tienda online con WordPress y WooCommerce. Organizamos productos, compra, pagos y envíos. '
+  'También valoramos migraciones y conexiones con tu ERP o programa de gestión, tras revisar sus APIs y '
+  'compatibilidad.',
+  'We build or refresh your WordPress and WooCommerce store, organising products, checkout, payments and shipping. We '
+  'also assess migrations and connections to your ERP or business software after reviewing APIs and compatibility.',
+  ['Catálogo y fichas de producto',
+   'Configuración de pagos y envíos',
+   'Migraciones e integración con herramientas de gestión'],
+  ['Catalogue and product pages', 'Payment and shipping setup', 'Migrations and business software integrations']),
+ ('apps',
+  'SOFTWARE Y APLICACIONES MÓVILES',
+  'SOFTWARE & MOBILE APPLICATIONS',
+  'Herramientas creadas alrededor de tu forma de trabajar.',
+  'Tools built around the way you work.',
+  'Desarrollo de aplicaciones web y móviles, software a medida, paneles internos y conexiones mediante APIs. Definimos '
+  'las funciones, los dispositivos y las plataformas que necesita cada proyecto.',
+  'Web and mobile application development, custom software, internal dashboards and API integrations. We define the '
+  'features, devices and platforms each project needs.',
+  ['Aplicaciones web y software a medida',
+   'Apps móviles: Android e iOS según alcance',
+   'APIs, bases de datos e integraciones'],
+  ['Web applications & custom software', 'Mobile apps: Android and iOS as scoped', 'APIs, databases & integrations']),
+ ('academias-online',
+  'ACADEMIAS ONLINE Y CAMPUS VIRTUALES',
+  'ONLINE ACADEMIES & LEARNING PLATFORMS',
+  'Tu conocimiento, en una plataforma propia.',
+  'Your knowledge, on your own platform.',
+  'Creamos plataformas de formación con Moodle para profesionales, academias y empresas. Organizamos cursos, '
+  'materiales, actividades y evaluaciones, con acceso de alumnos y seguimiento del aprendizaje. Tú aportas el '
+  'contenido formativo; preparamos la plataforma y te enseñamos a gestionarla. Si quieres vender cursos, definimos los '
+  'pagos y accesos según el proyecto.',
+  'We build Moodle learning platforms for professionals, academies and businesses. We organise courses, resources, '
+  'activities and assessments, with student access and learning progress tracking. You provide the teaching content; '
+  'we set up the platform and show you how to manage it. For paid courses, payments and access are scoped around the '
+  'project.',
+  ['Cursos, recursos y evaluaciones',
+   'Alumnos, matrículas, roles y seguimiento',
+   'Formación para administrar tu campus'],
+  ['Courses, resources and assessments',
+   'Students, enrolments, roles and progress tracking',
+   'Training to manage your learning platform']),
+ ('automatizacion',
+  'CRM Y AUTOMATIZACIÓN',
+  'CRM & AUTOMATION',
+  'Menos tareas repetidas. Más tiempo para tu negocio.',
+  'Fewer repetitive tasks. More time for your business.',
+  'Analizamos cómo gestionas clientes y tareas para conectar herramientas y simplificar procesos. Integraciones con '
+  'CRM, incluido Zoho, según el alcance del proyecto.',
+  'We review how you manage customers and tasks to connect tools and simplify processes. CRM integrations, including '
+  'Zoho, depending on project scope.',
+  ['Revisión de procesos', 'Conexión entre herramientas', 'Flujos de trabajo digitales'],
+  ['Process review', 'Tool connections', 'Digital workflows']),
+ ('hosting-correo',
+  'DOMINIO, HOSTING Y CORREO',
+  'DOMAIN, HOSTING & EMAIL',
+  'La base de tu presencia digital, bien configurada.',
+  'A well-configured foundation for your online presence.',
+  'Te ayudo a elegir y configurar el dominio, el alojamiento y el correo profesional de tu negocio. Preparamos DNS, '
+  'certificado HTTPS, publicación o traslado del sitio y cuentas de correo. Las contrataciones, renovaciones y '
+  'licencias de proveedores se detallan en la propuesta.',
+  'I help you choose and configure your business domain, hosting and professional email. We set up DNS, HTTPS '
+  'certificates, website deployment or transfer and email accounts. Provider subscriptions, renewals and licences are '
+  'detailed in the proposal.',
+  ['Dominio y configuración DNS', 'Alojamiento, HTTPS y publicación', 'Correo con tu dominio y migración de cuentas'],
+  ['Domain and DNS setup', 'Hosting, HTTPS and deployment', 'Custom-domain email and mailbox migration']),
+ ('mantenimiento',
+  'MANTENIMIENTO WEB',
+  'WEBSITE MAINTENANCE',
+  'La web también necesita atención después del lanzamiento.',
+  'Your website needs care after launch, too.',
+  'Actualizaciones, copias de seguridad, revisión de incidencias y mejoras de rendimiento. El mantenimiento se define '
+  'según tu plataforma y tus necesidades.',
+  'Updates, backups, issue reviews and performance improvements. Maintenance is scoped around your platform and your '
+  'needs.',
+  ['Actualizaciones y copias', 'Revisión de seguridad', 'Mejoras y soporte'],
+  ['Updates & backups', 'Security review', 'Improvements & support']),
+ ('sistemas',
+  'SISTEMAS Y SOPORTE IT',
+  'SYSTEMS & IT SUPPORT',
+  'La tecnología de tu día a día, bien conectada.',
+  'Your everyday technology, properly connected.',
+  'Configuración y mantenimiento de equipos, redes locales y sistemas. Soporte remoto o presencial en Reus y '
+  'alrededores, según el servicio.',
+  'Computer, local network and system setup and maintenance. Remote support or on-site support in and around Reus, '
+  'depending on the service.',
+  ['Windows, Linux y macOS', 'Equipos y redes locales', 'Servidores y servicios en red'],
+  ['Windows, Linux & macOS', 'Computers & local networks', 'Servers & network services']),
+ ('asesoramiento',
+  'ASESORAMIENTO DIGITAL',
+  'DIGITAL ADVICE',
+  'Decide qué necesitas antes de invertir.',
+  'Know what you need before investing.',
+  '¿No sabes si necesitas una web, una tienda, un campus virtual o mejorar lo que ya utilizas? Revisamos tu punto de '
+  'partida, tus objetivos y tus prioridades para definir una solución que encaje contigo. La primera consulta y el '
+  'asesoramiento inicial son gratuitos y personalizados; el trabajo posterior se concreta en una propuesta.',
+  'Not sure whether you need a website, a store, a learning platform or improvements to your existing tools? We review '
+  'your starting point, goals and priorities to define a solution that fits. The first consultation and initial advice '
+  'are free and personalised; any subsequent work is scoped in a proposal.',
+  ['Consulta inicial gratuita y sin compromiso',
+   'Orientación sobre herramientas y opciones',
+   'Prioridades, próximos pasos y alcance del proyecto'],
+  ['Free initial consultation with no obligation',
+   'Guidance on tools and options',
+   'Priorities, next steps and project scope'])]
 
 def service_rows(full=False):
+    actions = {
+        'web': ('DISEÑAR MI WEB', 'DESIGN MY WEBSITE'),
+        'ecommerce': ('ABRIR MI TIENDA', 'LAUNCH MY STORE'),
+        'apps': ('CREAR MI APLICACIÓN', 'BUILD MY APP'),
+        'academias-online': ('CREAR MI ACADEMIA', 'BUILD MY ACADEMY'),
+        'automatizacion': ('AUTOMATIZAR MI NEGOCIO', 'AUTOMATE MY BUSINESS'),
+        'hosting-correo': ('CONFIGURAR DOMINIO Y CORREO', 'SET UP DOMAIN & EMAIL'),
+        'mantenimiento': ('CUIDAR MI WEB', 'LOOK AFTER MY WEBSITE'),
+        'sistemas': ('RESOLVER UNA INCIDENCIA', 'SOLVE AN IT ISSUE'),
+        'asesoramiento': ('PEDIR ORIENTACIÓN', 'GET ADVICE'),
+    }
     result=''
     for i,(slug,es,en,des,den,longes,longen,bullets,bullen) in enumerate(SERVICES):
         if full:
             bullets_html=''.join('<li>'+t(a,b)+'</li>' for a,b in zip(bullets,bullen))
-            result+=f'<article class="service-detail" id="{slug}"><span class="service-number">0{i+1}</span><div>{t(es,en,"h2")}{t(des,den,"p","service-intro")}</div><div>{t(longes,longen,"p")}<ul>{bullets_html}</ul><a class="text-link" href="/contacto/?servicio={slug}">{t("CUÉNTAME QUÉ NECESITAS","TELL ME WHAT YOU NEED")}{arrow()}</a></div></article>'
+            result+=f'<article class="service-detail" id="{slug}"><span class="service-number">0{i+1}</span><div>{t(es,en,"h2")}{t(des,den,"p","service-intro")}</div><div>{t(longes,longen,"p")}<ul>{bullets_html}</ul><a class="text-link" href="/contacto/?servicio={slug}">{t(*actions[slug])}{arrow()}</a></div></article>'
         else:
             result+=f'<a class="service-row" href="/servicios/#{slug}"><span class="service-number">0{i+1}</span>{t(es,en,"h3")}{t(des,den,"p")}{arrow(True)}</a>'
     return result
@@ -173,18 +302,105 @@ def featured_work():
     <div class="gallery-footer">{t('¿Te imaginas tu proyecto aquí?','Can you picture your project here?','p')}<a class="text-link" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" data-whatsapp data-url-es="{WHATSAPP}" data-url-en="{WHATSAPP_EN}">{t('CREEMOS EL TUYO','LET’S CREATE YOURS')}{arrow(True)}</a></div></section>'''
 
 def featured_services():
-    cards = [
-        ('web', 'WEB A MEDIDA', 'CUSTOM WEBSITES', 'Una web a la altura de tu marca.', 'A website worthy of your brand.', 'Diseño propio, navegación clara y una experiencia cuidada en cada pantalla.', 'Original design, clear navigation and a considered experience on every screen.', 'Diseño · Desarrollo · UX/UI', 'Design · Development · UX/UI', '<rect x="5" y="8" width="38" height="30" rx="4"/><path d="M5 17h38M11 12.5h.01M16 12.5h.01m1 11-5 4 5 4m14-8 5 4-5 4m-5-10-4 12"/>'),
-        ('ecommerce', 'TIENDAS ONLINE', 'ONLINE STORES', 'Tu catálogo, listo para vender.', 'Your catalogue, ready to sell.', 'Productos, pagos y envíos conectados en una tienda que represente tu negocio.', 'Products, payments and shipping connected in a store that represents your business.', 'Catálogo · Pagos · Envíos', 'Catalogue · Payments · Shipping', '<path d="M8 16h32l-2 25H10L8 16Zm9 0v-4a7 7 0 0 1 14 0v4M17 24h.01M31 24h.01"/><path d="m19 31 4 4 7-8"/>'),
-        ('apps', 'APPS Y SOFTWARE', 'APPS & SOFTWARE', 'Tu idea, convertida en una app.', 'Your idea, brought to life in an app.', 'Aplicaciones móviles y herramientas a medida, diseñadas alrededor de tus usuarios.', 'Mobile apps and custom tools designed around your users.', 'Móvil · Web · APIs', 'Mobile · Web · APIs', '<rect x="11" y="3" width="26" height="42" rx="5"/><path d="M19 8h10M21 39h6m-7-23-5 6 5 6m8-12 5 6-5 6"/>'),
-        ('automatizacion', 'CRM Y AUTOMATIZACIÓN', 'CRM & AUTOMATION', 'Menos tareas. Más tiempo.', 'Fewer tasks. More time.', 'Conecta tu web, tus clientes y tus herramientas para simplificar el trabajo diario.', 'Connect your website, customers and tools to simplify everyday work.', 'Zoho · Integraciones · Flujos', 'Zoho · Integrations · Workflows', '<rect x="3" y="5" width="14" height="12" rx="3"/><rect x="31" y="31" width="14" height="12" rx="3"/><path d="M17 11h12a9 9 0 0 1 9 9v11m-4-4 4 4 4-4M31 37H19a9 9 0 0 1-9-9V17m-4 4 4-4 4 4"/>'),
-        ('mantenimiento', 'MANTENIMIENTO WEB', 'WEBSITE MAINTENANCE', 'Tu web, siempre atendida.', 'Ongoing care for your website.', 'Actualizaciones, copias de seguridad y soporte para seguir mejorando tras el lanzamiento.', 'Updates, backups and support to keep improving after launch.', 'Actualizaciones · Copias · Soporte', 'Updates · Backups · Support', '<path d="m24 4 16 6v12c0 10-16 21-16 21S8 32 8 22V10L24 4Z"/><path d="m16 23 6 6 11-12"/>'),
-        ('sistemas', 'SISTEMAS Y SOPORTE IT', 'SYSTEMS & IT SUPPORT', 'Tu tecnología, bien conectada.', 'Your technology, well connected.', 'Equipos, redes y servidores preparados para las necesidades de tu actividad.', 'Computers, networks and servers configured around your business needs.', 'Equipos · Redes · Servidores', 'Computers · Networks · Servers', '<rect x="12" y="3" width="24" height="15" rx="3"/><path d="M24 18v10M8 28h32M8 28v6m32-6v6M24 28v6"/><rect x="3" y="34" width="10" height="9" rx="2"/><rect x="19" y="34" width="10" height="9" rx="2"/><rect x="35" y="34" width="10" height="9" rx="2"/>')
-    ]
+    cards = [('web',
+      'WEB A MEDIDA',
+      'CUSTOM WEBSITES',
+      'Una web a la altura de tu marca.',
+      'A website worthy of your brand.',
+      'Webs corporativas, landing pages, blogs y portfolios. También renovamos tu web actual.',
+      'Business websites, landing pages, blogs and portfolios. We also refresh existing websites.',
+      'Diseño · Landing pages · Rediseño',
+      'Design · Landing pages · Redesign',
+      '<rect x="5" y="8" width="38" height="30" rx="4"/><path d="M5 17h38M11 12.5h.01M16 12.5h.01m1 11-5 4 5 4m14-8 5 4-5 '
+      '4m-5-10-4 12"/>'),
+     ('ecommerce',
+      'TIENDAS ONLINE',
+      'ONLINE STORES',
+      'Tu catálogo, listo para vender.',
+      'Your catalogue, ready to sell.',
+      'Productos, pagos y envíos en una tienda propia, con migraciones e integraciones según tu proyecto.',
+      'Products, payments and shipping in your own store, with migrations and integrations scoped to your project.',
+      'Catálogo · Venta · Integraciones',
+      'Catalogue · Sales · Integrations',
+      '<path d="M8 16h32l-2 25H10L8 16Zm9 0v-4a7 7 0 0 1 14 0v4M17 24h.01M31 24h.01"/><path d="m19 31 4 4 7-8"/>'),
+     ('apps',
+      'APPS Y SOFTWARE',
+      'APPS & SOFTWARE',
+      'Tu idea, convertida en una app.',
+      'Your idea, brought to life in an app.',
+      'Aplicaciones móviles y herramientas a medida, diseñadas alrededor de tus usuarios.',
+      'Mobile apps and custom tools designed around your users.',
+      'Móvil · Web · APIs',
+      'Mobile · Web · APIs',
+      '<rect x="11" y="3" width="26" height="42" rx="5"/><path d="M19 8h10M21 39h6m-7-23-5 6 5 6m8-12 5 6-5 6"/>'),
+     ('academias-online',
+      'ACADEMIAS ONLINE',
+      'ONLINE ACADEMIES',
+      'Tu conocimiento, sin fronteras.',
+      'Your knowledge, without borders.',
+      'Un campus virtual con tus cursos, acceso para alumnos y seguimiento del aprendizaje.',
+      'A learning platform with your courses, student access and progress tracking.',
+      'Moodle · Cursos · Alumnos',
+      'Moodle · Courses · Students',
+      '<path d="m3 16 21-10 21 10-21 10L3 16Zm8 4v12c8 7 18 7 26 0V20M44 17v16"/><path d="M7 39h34"/>'),
+     ('automatizacion',
+      'CRM Y AUTOMATIZACIÓN',
+      'CRM & AUTOMATION',
+      'Menos tareas. Más tiempo.',
+      'Fewer tasks. More time.',
+      'Conecta tu web, tus clientes y tus herramientas para simplificar el trabajo diario.',
+      'Connect your website, customers and tools to simplify everyday work.',
+      'Zoho · Integraciones · Flujos',
+      'Zoho · Integrations · Workflows',
+      '<rect x="3" y="5" width="14" height="12" rx="3"/><rect x="31" y="31" width="14" height="12" rx="3"/><path d="M17 '
+      '11h12a9 9 0 0 1 9 9v11m-4-4 4 4 4-4M31 37H19a9 9 0 0 1-9-9V17m-4 4 4-4 4 4"/>'),
+     ('hosting-correo',
+      'DOMINIO, HOSTING Y CORREO',
+      'DOMAIN, HOSTING & EMAIL',
+      'Tu marca, con dirección propia.',
+      'Your brand, with its own address.',
+      'Configuramos el alojamiento, el dominio y el correo profesional para poner tu proyecto en marcha.',
+      'We configure hosting, your domain and professional email to get your project online.',
+      'Dominio · Alojamiento · Correo',
+      'Domain · Hosting · Email',
+      '<rect x="5" y="5" width="38" height="14" rx="3"/><path d="M11 12h.01M17 12h.01M30 12h6"/><rect x="5" y="25" '
+      'width="38" height="18" rx="3"/><path d="m6 27 18 11 18-11"/>'),
+     ('mantenimiento',
+      'MANTENIMIENTO WEB',
+      'WEBSITE MAINTENANCE',
+      'Tu web, siempre atendida.',
+      'Ongoing care for your website.',
+      'Actualizaciones, copias de seguridad y soporte para seguir mejorando tras el lanzamiento.',
+      'Updates, backups and support to keep improving after launch.',
+      'Actualizaciones · Copias · Soporte',
+      'Updates · Backups · Support',
+      '<path d="m24 4 16 6v12c0 10-16 21-16 21S8 32 8 22V10L24 4Z"/><path d="m16 23 6 6 11-12"/>'),
+     ('sistemas',
+      'SISTEMAS Y SOPORTE IT',
+      'SYSTEMS & IT SUPPORT',
+      'Tu tecnología, bien conectada.',
+      'Your technology, well connected.',
+      'Equipos, redes y servidores preparados para las necesidades de tu actividad.',
+      'Computers, networks and servers configured around your business needs.',
+      'Equipos · Redes · Servidores',
+      'Computers · Networks · Servers',
+      '<rect x="12" y="3" width="24" height="15" rx="3"/><path d="M24 18v10M8 28h32M8 28v6m32-6v6M24 28v6"/><rect x="3" '
+      'y="34" width="10" height="9" rx="2"/><rect x="19" y="34" width="10" height="9" rx="2"/><rect x="35" y="34" '
+      'width="10" height="9" rx="2"/>'),
+     ('asesoramiento',
+      'ASESORAMIENTO DIGITAL',
+      'DIGITAL ADVICE',
+      'El primer paso, con claridad.',
+      'A clear first step.',
+      'Cuéntame tu idea. Te ayudo a elegir la solución y a ordenar las prioridades de tu proyecto.',
+      'Tell me your idea. I help you choose a solution and set priorities for your project.',
+      'Consulta inicial gratuita',
+      'Free initial consultation',
+      '<path d="M6 6h36v26H22l-10 9v-9H6V6Z"/><path d="M14 15h20M14 22h14"/>')]
     content = ''
     for i,(slug,cat_es,cat_en,title_es,title_en,desc_es,desc_en,meta_es,meta_en,icon) in enumerate(cards):
         content += f'''<a class="solution-card" href="/servicios/#{slug}"><div class="solution-card-top"><span class="solution-icon"><svg viewBox="0 0 48 48" aria-hidden="true">{icon}</svg></span><span class="solution-number">0{i+1}</span></div>{t(cat_es,cat_en,'p','solution-category')}{t(title_es,title_en,'h3')}{t(desc_es,desc_en,'p','solution-description')}<div class="solution-card-bottom">{t(meta_es,meta_en,'span','solution-meta')}<span class="solution-open"><span class="sr-only">{t('Ver servicio','View service')}</span>{arrow(True)}</span></div></a>'''
-    return f'''<section class="services-section wrap" aria-labelledby="solutions-title"><div class="section-top"><div>{t('QUÉ HACEMOS · SOLUCIONES PARA TU NEGOCIO','WHAT WE DO · SOLUTIONS FOR YOUR BUSINESS','p','eyebrow')}<h2 id="solutions-title">{t('¿Qué quieres hacer posible?','What do you want to make possible?')}</h2></div>{t('Diseñamos webs y tiendas online, creamos apps y software a medida, conectamos CRM y automatizamos tareas. También cuidamos tus sistemas y tu web.','We design websites and online stores, build custom apps and software, connect CRMs and automate tasks. We also look after your systems and website.','p','section-intro')}</div><div class="solutions-grid">{content}</div></section>'''
+    return f'''<section class="services-section wrap" aria-labelledby="solutions-title"><div class="section-top"><div>{t('QUÉ HACEMOS · SOLUCIONES PARA TU NEGOCIO','WHAT WE DO · SOLUTIONS FOR YOUR BUSINESS','p','eyebrow')}<h2 id="solutions-title">{t('¿Qué quieres hacer posible?','What do you want to make possible?')}</h2></div>{t('Desde una primera web hasta un campus virtual: diseñamos, conectamos y ponemos a punto las herramientas que necesita tu negocio.','From your first website to a learning platform: we design, connect and set up the tools your business needs.','p','section-intro')}</div><div class="solutions-grid">{content}</div></section>'''
 
 def work_process():
     steps = [
@@ -231,21 +447,21 @@ def brand_origin(compact=False):
     return '<section class="brand-origin-section wrap" aria-labelledby="brand-origin-title"><div class="brand-origin">'+t('EL ORIGEN DE LA MARCA','THE STORY BEHIND THE NAME','p','eyebrow')+'<h2 id="brand-origin-title">'+t('¿Por qué Antoni Tech?','Why Antoni Tech?')+'</h2>'+''.join(t(es,en,'p') for es,en in paragraphs)+'</div></section>'
 
 def bio_teaser():
-    return f'''<section class="about-teaser">{brand_showreel()}<div class="about-teaser-copy">{t('DETRÁS DE LOS PROYECTOS DE ANTONI TECH','BEHIND THE ANTONI TECH PROJECTS','p','eyebrow')}{t('Hola, soy Yonathan Alvarado.','Hi, I’m Yonathan Alvarado.','h2')}{t('Técnico en Sistemas Microinformáticos y Redes, desarrollador web full stack freelance y programador.','Computer Systems & Networking Technician, freelance full-stack web developer and programmer.','p','bio-role')}{t('Combino diseño, desarrollo frontend y backend y conocimientos de sistemas para convertir ideas en soluciones digitales útiles, cuidadas y fáciles de usar.','I combine design, frontend and backend development, and systems knowledge to turn ideas into useful, carefully crafted digital solutions that are easy to use.','p')}{t('Desde Reus, trabajo con emprendedores y empresas de España y otros países. Me implico en cada proyecto con trato directo, atención al detalle y soluciones a medida.','Based in Reus, I work with entrepreneurs and businesses in Spain and beyond. I bring direct communication, attention to detail and tailored solutions to every project.','p')}{brand_origin(True)}<a class="text-link" href="/sobre-mi/">{t('CONOCE MI HISTORIA','GET TO KNOW ME')}{arrow(True)}</a></div></section>'''
+    return f'''<section class="about-teaser">{brand_showreel()}<div class="about-teaser-copy">{t('DETRÁS DE LOS PROYECTOS DE ANTONI TECH','BEHIND THE ANTONI TECH PROJECTS','p','eyebrow')}{t('Hola, soy Yonathan Alvarado.','Hi, I’m Yonathan Alvarado.','h2')}{t('Desarrollador web full stack y diseñador gráfico freelance, programador y Técnico en Sistemas Microinformáticos y Redes.','Freelance full-stack web developer and graphic designer, programmer and Computer Systems & Networking Technician.','p','bio-role')}{t('Combino diseño, desarrollo frontend y backend y conocimientos de sistemas para convertir ideas en soluciones digitales útiles, cuidadas y fáciles de usar.','I combine design, frontend and backend development, and systems knowledge to turn ideas into useful, carefully crafted digital solutions that are easy to use.','p')}{t('Desde Reus, trabajo con emprendedores y empresas de España y otros países. Me implico en cada proyecto con trato directo, atención al detalle y soluciones a medida.','Based in Reus, I work with entrepreneurs and businesses in Spain and beyond. I bring direct communication, attention to detail and tailored solutions to every project.','p')}{brand_origin(True)}<a class="text-link" href="/sobre-mi/">{t('CONOCE MI HISTORIA','GET TO KNOW ME')}{arrow(True)}</a></div></section>'''
 
 def home():
     slide_controls=''.join(f'<button class="slide-selector" type="button" data-slide="{i}" aria-pressed="{str(i==0).lower()}" aria-label="{label_es}" data-es="{label_es}" data-en="{label_en}" data-i18n-attr="aria-label" aria-controls="hero-copy"><span aria-hidden="true"></span></button>' for i,(label_es,label_en) in enumerate([('1. Diseño, código e impacto','1. Design, code and impact'),('2. Vídeo de Antoni Tech','2. Antoni Tech film'),('3. Soluciones digitales para tu negocio','3. Digital solutions for your business')]))
     return f'''<section class="hero" aria-labelledby="hero-title"><img class="hero-art" src="/assets/hero-metallic.png" width="1672" height="941" fetchpriority="high" alt="Logo metálico de Antoni Tech en cian y magenta, con reflejos sobre el suelo"><img class="hero-logo-light" src="/assets/hero-metallic.png" alt="" aria-hidden="true" width="1672" height="941"><img class="hero-services-art" src="{asset_url('hero-services.png')}" width="1672" height="941" alt="Composición escultórica de formas marfil, grafito y cristal sobre un fondo claro" loading="eager" decoding="async" aria-hidden="true"><div class="hero-film-layer" aria-hidden="true" inert><video class="hero-film" playsinline muted preload="none" controls aria-label="Vídeo de presentación de Antoni Tech"><source src="{asset_url('hero-cyber-film.mp4')}" type="video/mp4">{t('Tu navegador no admite vídeo.','Your browser does not support video.')}</video><button class="hero-film-start" type="button" hidden>{t('Reproducir vídeo','Play video')} ▷</button><button class="hero-sound" type="button" aria-pressed="false" aria-label="Activar sonido"><span aria-hidden="true">♪</span><span data-hero-sound-label>{t('Activar sonido','Enable sound')}</span></button></div><div class="hero-shade"></div>
     <div class="hero-content wrap"><div id="hero-copy"><p class="eyebrow" data-hero-eyebrow data-es="DESARROLLO WEB · DISEÑO · TECNOLOGÍA" data-en="WEB DEVELOPMENT · DESIGN · TECHNOLOGY">DESARROLLO WEB · DISEÑO · TECNOLOGÍA</p><h1 id="hero-title"><span data-hero-line data-es="DISEÑO." data-en="DESIGN.">DISEÑO.</span><br><span data-hero-line data-es="CÓDIGO." data-en="CODE.">CÓDIGO.</span><br><span data-hero-line data-es="IMPACTO." data-en="IMPACT.">IMPACTO.</span></h1><p class="hero-description" data-hero-description data-es="Webs, apps móviles y software a medida para dar forma a tu próximo proyecto." data-en="Websites, mobile apps and custom software to bring your next project to life.">Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.</p></div>
     <div class="hero-actions">{button(WHATSAPP,'PEDIR PRESUPUESTO','REQUEST A QUOTE',external=True)}<a class="text-link" href="/proyectos/">{t('VER PROYECTOS','VIEW WORK')}{arrow(True)}</a></div></div>
-    <div class="hero-bottom wrap"><div class="hero-signature"><p>Yonathan Alvarado</p>{t('Desarrollador Full Stack Freelance · Software y tecnología','Freelance Full Stack Developer · Software & technology','p')}{t('Reus, España · Proyectos internacionales','Reus, Spain · International projects','p')}</div><a href="#seleccion" class="scroll-cue" aria-label="Ver proyectos seleccionados / Selected work">↓</a><div class="hero-controls"><div class="slide-selectors" role="group" aria-label="Presentación / Slideshow">{slide_controls}</div><button class="motion-toggle" type="button" aria-label="Pausar presentación" aria-pressed="false"><span class="sr-only" data-es="PAUSAR PRESENTACIÓN" data-en="PAUSE SLIDESHOW">PAUSAR PRESENTACIÓN</span><span aria-hidden="true">Ⅱ</span></button></div><span id="slide-status" class="sr-only" role="status"></span></div></section>
+    <div class="hero-bottom wrap"><div class="hero-signature"><p>Yonathan Alvarado</p>{t('Desarrollador Full Stack y Diseñador Gráfico · Freelance','Full Stack Developer & Graphic Designer · Freelance','p')}{t('Reus, España · Proyectos internacionales','Reus, Spain · International projects','p')}</div><a href="#seleccion" class="scroll-cue" aria-label="Ver proyectos seleccionados / Selected work">↓</a><div class="hero-controls"><div class="slide-selectors" role="group" aria-label="Presentación / Slideshow">{slide_controls}</div><button class="motion-toggle" type="button" aria-label="Pausar presentación" aria-pressed="false"><span class="sr-only" data-es="PAUSAR PRESENTACIÓN" data-en="PAUSE SLIDESHOW">PAUSAR PRESENTACIÓN</span><span aria-hidden="true">Ⅱ</span></button></div><span id="slide-status" class="sr-only" role="status"></span></div></section>
     {featured_work()}
     {featured_services()}
     {work_process()}
     {bio_teaser()}{cta()}'''
 
 def services():
-    tech=[('DESARROLLO','DEVELOPMENT','HTML · CSS · JavaScript · React · PHP · Python · Java'),('DATOS E INTEGRACIONES','DATA & INTEGRATIONS','SQL · phpMyAdmin · APIs · XML · JSON'),('WEB Y NEGOCIO','WEB & BUSINESS','WordPress · WooCommerce · CRM · Zoho'),('DISEÑO Y SISTEMAS','DESIGN & SYSTEMS','Figma · Adobe · Git · GitHub · Windows · Linux · macOS')]
+    tech=[('DESARROLLO','DEVELOPMENT','HTML · CSS · JavaScript · React · PHP · Python · Java'),('DATOS E INTEGRACIONES','DATA & INTEGRATIONS','SQL · phpMyAdmin · APIs · XML · JSON'),('WEB Y NEGOCIO','WEB & BUSINESS','WordPress · WooCommerce · Moodle · CRM · Zoho'),('DISEÑO Y SISTEMAS','DESIGN & SYSTEMS','Figma · Adobe · Git · GitHub · Windows · Linux · macOS')]
     return page_head(('SERVICIOS / SOLUCIONES A MEDIDA','SERVICES / TAILORED SOLUTIONS'),'TECNOLOGÍA QUE TRABAJA CONTIGO.','TECHNOLOGY THAT WORKS WITH YOU.','No necesitas todas las herramientas. Necesitas una solución que encaje con tu negocio.','You don’t need every tool. You need a solution that fits your business.')+f'''<section class="service-details wrap">{service_rows(True)}</section>{work_process()}<section class="tech-section wrap">{t('LAS HERRAMIENTAS SIGUEN A LA IDEA.','THE TOOLS FOLLOW THE IDEA.','h2')}{t('La elección técnica y las integraciones se concretan en cada propuesta.','The technical approach and integrations are defined in each proposal.','p','muted')}<div class="tech-grid">{''.join('<div>'+t(es,en,'h3')+f'<p>{tools}</p></div>' for es,en,tools in tech)}</div></section>{cta()}'''
 
 def projects():
@@ -253,7 +469,7 @@ def projects():
     return page_head(('PROYECTOS / UNA SELECCIÓN','WORK / A SELECTION'),'DEL CONCEPTO A LA PANTALLA.','FROM CONCEPT TO SCREEN.','Marcas, personas y negocios con algo que contar. Estos son algunos proyectos en los que he trabajado.','Brands, people and businesses with something to say. Here are some projects I’ve worked on.')+f'''<section class="all-work wrap"><div class="project-filters" role="group" aria-label="Filtrar proyectos / Filter projects">{''.join(f'<button type="button" data-filter="{v}" aria-pressed="{str(v=="all").lower()}">{t(es,en)}</button>' for v,es,en in filters)}</div><p class="sr-only" id="filter-status" aria-live="polite"></p><div class="project-grid">{''.join(project_card(p,i) for i,p in enumerate(PROJECTS))}</div></section>{cta()}'''
 
 def about():
-    return page_head(('SOBRE MÍ / YONATHAN ALVARADO','ABOUT / YONATHAN ALVARADO'),'DISEÑO, CÓDIGO Y VISIÓN DE CONJUNTO.','DESIGN, CODE AND THE BIG PICTURE.','Soy el desarrollador freelance detrás de Antoni Tech. Trabajas directamente conmigo para dar forma a tu idea, desde la primera conversación hasta el lanzamiento.','I’m the freelance developer behind Antoni Tech. You work directly with me to bring your idea to life, from our first conversation through to launch.')+f'''<section class="about-story">{brand_showreel()}<div class="story-copy">{t('UNA TRAYECTORIA QUE CONECTA DISCIPLINAS.','A BACKGROUND THAT CONNECTS DISCIPLINES.','h2')}{t('Soy Técnico en Sistemas Microinformáticos y Redes, desarrollador web full stack freelance y programador. Mi recorrido une diseño gráfico, desarrollo frontend y backend y conocimientos de sistemas para cuidar tanto lo que ve tu cliente como lo que hace que todo funcione.','I am a Computer Systems & Networking Technician, freelance full-stack web developer and programmer. My background combines graphic design, frontend and backend development, and systems knowledge to take care of both what your customer sees and what makes everything work.','p')}{t('También he trabajado en atención al público y en clínica dental. Son experiencias que me han enseñado a escuchar, cuidar los detalles, coordinar tareas y respetar los tiempos de las personas.','I’ve also worked in customer service and in a dental clinic. Those experiences taught me to listen, care about details, coordinate tasks and respect people’s time.','p')}{t('Hoy aplico esa forma de trabajar a proyectos digitales: entender primero, proponer con criterio y mantener una comunicación directa durante el proceso.','Today I apply that approach to digital projects: understand first, make thoughtful proposals and keep communication direct throughout the process.','p')}<div class="signature-line"><strong>Yonathan Alvarado</strong>{t('Desarrollador Full Stack Freelance · Software y tecnología','Freelance Full Stack Developer · Software & technology','span')}</div></div></section>{brand_origin()}<section class="about-principles wrap"><div>{t('LO QUE PUEDES ESPERAR','WHAT YOU CAN EXPECT','p','eyebrow')}<h2>{t('CERCANÍA.','DIRECT CONTACT.')}<br>{t('CRITERIO.','CLEAR THINKING.')}<br>{t('COMPROMISO.','COMMITMENT.','span','muted')}</h2></div><div class="principle-list">{''.join('<article>'+t(es,en,'h3')+t(de,dn,'p')+'</article>' for es,en,de,dn in [('Hablar con quien hace el trabajo','Talk to the person doing the work','Una relación directa, sin intermediarios innecesarios.','A direct relationship, without unnecessary intermediaries.'),('Saber qué vamos a construir','Know what we’re building','Alcance y entregables acordados antes de empezar.','Scope and deliverables agreed before we begin.'),('Entender las decisiones','Understand the decisions','Explicaciones claras, también cuando la mejor opción es simplificar.','Clear explanations, including when simplifying is the best option.')])}</div></section><section class="background-section wrap">{t('FORMACIÓN Y BASE TÉCNICA','EDUCATION & TECHNICAL FOUNDATION','p','eyebrow')}<div class="background-row"><span>2024—2026</span><div>{t('Técnico en Sistemas Microinformáticos y Redes','Computer Systems & Networking Technician','h3')}<p>Institut Baix Camp</p></div>{t('Finalizado','Completed','span','status-tag')}</div><div class="background-row"><span>2026—</span><div>{t('Desarrollo de Aplicaciones Web','Web Application Development','h3')}{t('Formación en curso','Currently studying','p')}</div>{t('En curso','In progress','span','status-tag')}</div><div class="background-row"><span>2001—2005</span><div>{t('Formación en Diseño Gráfico','Graphic Design Studies','h3')}<p>IUTIRLA</p></div></div></section>{cta()}'''
+    return page_head(('SOBRE MÍ / YONATHAN ALVARADO','ABOUT / YONATHAN ALVARADO'),'DISEÑO, CÓDIGO Y VISIÓN DE CONJUNTO.','DESIGN, CODE AND THE BIG PICTURE.','Soy el desarrollador web y diseñador gráfico freelance detrás de Antoni Tech. Trabajas directamente conmigo para dar forma a tu idea, desde la primera conversación hasta el lanzamiento.','I’m the freelance web developer and graphic designer behind Antoni Tech. You work directly with me to bring your idea to life, from our first conversation through to launch.')+f'''<section class="about-story">{brand_showreel()}<div class="story-copy">{t('UNA TRAYECTORIA QUE CONECTA DISCIPLINAS.','A BACKGROUND THAT CONNECTS DISCIPLINES.','h2')}{t('Soy desarrollador web full stack y diseñador gráfico freelance, programador y Técnico en Sistemas Microinformáticos y Redes. Mi recorrido une diseño gráfico, desarrollo frontend y backend y conocimientos de sistemas para cuidar tanto lo que ve tu cliente como lo que hace que todo funcione.','I am a freelance full-stack web developer and graphic designer, programmer and Computer Systems & Networking Technician. My background combines graphic design, frontend and backend development, and systems knowledge to take care of both what your customer sees and what makes everything work.','p')}{t('También soy Técnico Superior en Higiene Bucodental y tengo experiencia en clínica dental y atención al público. Esa trayectoria me ha enseñado a escuchar, trabajar con precisión, organizar tareas y gestionar los tiempos sin perder el trato cercano con las personas.','I also hold a Higher Vocational Qualification in Dental Hygiene and have experience in dental clinics and customer service. That background taught me to listen, work precisely, organise tasks and manage time while maintaining a personal approach.','p')}{t('Hoy aplico esa forma de trabajar a proyectos digitales: entender primero, proponer con criterio y mantener una comunicación directa durante el proceso.','Today I apply that approach to digital projects: understand first, make thoughtful proposals and keep communication direct throughout the process.','p')}<div class="signature-line"><strong>Yonathan Alvarado</strong>{t('Desarrollador Full Stack y Diseñador Gráfico · Freelance','Full Stack Developer & Graphic Designer · Freelance','span')}</div></div></section>{brand_origin()}<section class="about-principles wrap"><div>{t('LO QUE PUEDES ESPERAR','WHAT YOU CAN EXPECT','p','eyebrow')}<h2>{t('CERCANÍA.','DIRECT CONTACT.')}<br>{t('CRITERIO.','CLEAR THINKING.')}<br>{t('COMPROMISO.','COMMITMENT.','span','muted')}</h2></div><div class="principle-list">{''.join('<article>'+t(es,en,'h3')+t(de,dn,'p')+'</article>' for es,en,de,dn in [('Hablar con quien hace el trabajo','Talk to the person doing the work','Una relación directa, sin intermediarios innecesarios.','A direct relationship, without unnecessary intermediaries.'),('Saber qué vamos a construir','Know what we’re building','Alcance y entregables acordados antes de empezar.','Scope and deliverables agreed before we begin.'),('Entender las decisiones','Understand the decisions','Explicaciones claras, también cuando la mejor opción es simplificar.','Clear explanations, including when simplifying is the best option.')])}</div></section><section class="background-section wrap">{t('FORMACIÓN Y BASE TÉCNICA','EDUCATION & TECHNICAL FOUNDATION','p','eyebrow')}<div class="background-row"><span>2024—2026</span><div>{t('Técnico en Sistemas Microinformáticos y Redes','Computer Systems & Networking Technician','h3')}<p>Institut Baix Camp</p></div>{t('Finalizado','Completed','span','status-tag')}</div><div class="background-row"><span>2026—</span><div>{t('Desarrollo de Aplicaciones Web','Web Application Development','h3')}{t('Formación en curso','Currently studying','p')}</div>{t('En curso','In progress','span','status-tag')}</div><div class="background-row"><span>{t('Salud','Healthcare')}</span><div>{t('Técnico Superior en Higiene Bucodental','Higher Vocational Qualification in Dental Hygiene','h3')}{t('Titulación y experiencia en clínica dental','Qualification and dental clinic experience','p')}</div>{t('Finalizado','Completed','span','status-tag')}</div><div class="background-row"><span>2001—2005</span><div>{t('Formación en Diseño Gráfico','Graphic Design Studies','h3')}<p>IUTIRLA</p></div></div></section>{cta()}'''
 
 def contact():
     options=''.join(f'<option value="{slug}" data-es="{es}" data-en="{en}">{es}</option>' for slug,es,en,*_ in SERVICES)
@@ -275,16 +491,27 @@ def asset_url(name):
     version = sha256((OUT / "assets" / name).read_bytes()).hexdigest()[:10]
     return f"/assets/{name}?v={version}"
 
+# The assistant and optional server share only the information published on this site.
+assistant_knowledge = {
+    'owner': 'Yonathan Alvarado', 'brand': 'Antoni Tech', 'location': 'Reus, España',
+    'profile': 'Desarrollador full stack y diseñador gráfico freelance; técnico en sistemas microinformáticos y redes.',
+    'contact': {'whatsapp': '+34635977484', 'email': EMAIL},
+    'services': [{'id': s[0], 'title': [s[1], s[2]], 'description': [s[5], s[6]]} for s in SERVICES],
+    'technologies': [item['label'] for item in json.loads((OUT / 'assets/technologies/sources.json').read_text()) if 'error' not in item] + ['Moodle'],
+    'projects': [{'name': p['name'], 'status': p['status'], 'url': p['url']} for p in PROJECTS],
+    'terms': 'Consulta inicial gratuita y personalizada. Precio, alcance y plazos se acuerdan con Yonathan. No hay tarifas, disponibilidad ni fechas confirmadas en la web.'
+}
+(OUT / 'assets/assistant-knowledge.mjs').write_text('export const knowledge = ' + json.dumps(assistant_knowledge, ensure_ascii=False) + ';\n')
+
 def write(route, title_es, title_en, description_es, description_en, content, home_page=False, draft=False):
     canonical=ORIGIN+route
     robots='<meta name="robots" content="noindex, nofollow">' if draft else ''
     markup=f'''<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">{robots}
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">{robots}
 <title data-es="{esc(title_es)} · Antoni Tech" data-en="{esc(title_en)} · Antoni Tech">{esc(title_es)} · Antoni Tech</title>
 <meta name="description" content="{esc(description_es)}" data-es="{esc(description_es)}" data-en="{esc(description_en)}" data-i18n-attr="content"><meta name="theme-color" content="#080a0e"><link rel="canonical" href="{canonical}">
-<meta property="og:title" content="{esc(title_es)} · Antoni Tech"><meta property="og:description" content="{esc(description_es)}"><meta property="og:type" content="website"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{ORIGIN}/assets/hero-metallic.png"><meta property="og:locale" content="es_ES"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/assets/antoni-tech-logo.png" type="image/png"><link rel="preload" href="/assets/barlow-condensed-800.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="{asset_url('site.css')}"><link rel="stylesheet" href="{asset_url('minimal.css')}"><link rel="stylesheet" href="{asset_url('showcase.css')}"><link rel="stylesheet" href="{asset_url('navigation.css')}"><link rel="stylesheet" href="{asset_url('hero-media.css')}"><script src="{asset_url('site.js')}" defer></script><script src="{asset_url('navigation.js')}" defer></script></head>
-<body id="top" class="{'home-page' if home_page else 'inner-page'}">{header(route)}<main id="contenido">{content}</main>{footer()}{video_dialog()}</body></html>'''
-    # Explicit HTML filenames also work when opening the ZIP via file://.
+<meta property="og:title" content="{esc(title_es)} · Antoni Tech"><meta property="og:description" content="{esc(description_es)}"><meta property="og:type" content="website"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{ORIGIN}/assets/hero-metallic.png"><meta property="og:locale" content="es_ES"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/assets/antoni-tech-logo.png" type="image/png"><link rel="preload" href="/assets/barlow-condensed-800.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="{asset_url('site.css')}"><link rel="stylesheet" href="{asset_url('minimal.css')}"><link rel="stylesheet" href="{asset_url('showcase.css')}"><link rel="stylesheet" href="{asset_url('navigation.css')}"><link rel="stylesheet" href="{asset_url('hero-media.css')}"><link rel="stylesheet" href="{asset_url('assistant.css')}"><link rel="stylesheet" href="{asset_url('responsive.css')}"><script type="module" src="{asset_url('assistant.mjs')}"></script><script src="{asset_url('site.js')}" defer></script><script src="{asset_url('navigation.js')}" defer></script></head>
+<body id="top" class="{'home-page' if home_page else 'inner-page'}">{header(route)}<main id="contenido">{content}</main>{footer()}{video_dialog()}{assistant_markup(t)}</body></html>'''
     depth = len([part for part in route.split('/') if part])
     prefix = '../' * depth if depth else './'
     def local_reference(match):
@@ -307,9 +534,4 @@ write('/contacto/','Hablemos de tu proyecto','Let’s talk about your project','
 for i,p in enumerate(PROJECTS):write('/proyectos/'+p['slug']+'/',p['name'],p['name'],p['intro'][0],p['intro'][1],case(p,i))
 for item in LEGAL_PAGES:
     write('/'+item[0]+'/',item[1],item[2],item[3],item[4],legal_page(item),draft=True)
-print('Generated 12 pages (including 3 legal drafts).')
-
-# Public-domain metadata for GitHub Pages.
-routes = ['/', '/servicios/', '/proyectos/', '/sobre-mi/', '/contacto/'] + ['/proyectos/' + p['slug'] + '/' for p in PROJECTS]
-(OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join('<url><loc>' + ORIGIN + route + '</loc></url>' for route in routes) + '</urlset>\n', encoding='utf-8')
-(OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: ' + ORIGIN + '/sitemap.xml\n', encoding='utf-8')
+print('Generated 12 pages (3 legal pages still require completion).')

@@ -108,7 +108,7 @@
   const hero = document.querySelector('.hero');
   const slideButtons = [...document.querySelectorAll('[data-slide]')];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const heroDesktop = window.matchMedia('(min-width: 761px)');
+  const heroDesktop = window.matchMedia('(min-width: 961px)');
   const heroVideo = hero?.querySelector('.hero-film');
   const heroFilmLayer = hero?.querySelector('.hero-film-layer');
   const heroCopy = hero?.querySelector('.hero-content');
