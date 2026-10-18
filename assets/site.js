@@ -116,7 +116,7 @@
   const slides = [
     { eyebrow: ['ANTONI TECH · EN MOVIMIENTO', 'ANTONI TECH · IN MOTION'],
       es: ['TU IDEA.', 'EN', 'ACCIÓN.'], en: ['YOUR IDEA.', 'IN', 'MOTION.'],
-      description: ['Diseño y tecnología para llevar tu próximo proyecto más lejos.', 'Design and technology to take your next project further.'] },
+      description: ['Webs, apps y software a medida para empresas de España y otros países.', 'Custom websites, apps and software for businesses in Spain and internationally.'] },
     { eyebrow: ['DESARROLLO WEB · DISEÑO · TECNOLOGÍA', 'WEB DEVELOPMENT · DESIGN · TECHNOLOGY'],
       es: ['DISEÑO.', 'CÓDIGO.', 'IMPACTO.'], en: ['DESIGN.', 'CODE.', 'IMPACT.'],
       description: ['Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.', 'Websites, mobile apps and custom software to bring your next project to life.'] },

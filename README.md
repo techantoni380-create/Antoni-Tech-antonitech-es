@@ -247,3 +247,10 @@ En móvil y tablet (hasta 960 px), la navegación tiene un fondo sólido y el v�
 ## Opiniones de clientes y usuarios
 
 Bloque después de Proyectos y antes de Servicios, con estrellas de 1 a 5 y tres tarjetas por tanda con «Ver más opiniones». El formulario está conectado al proyecto independiente de Antoni Tech en Supabase: los envíos quedan pendientes y solo las opiniones aprobadas aparecen públicamente. La media se calcula con las opiniones publicadas. No hay testimonios ficticios. Consulta `reviews-backend/README.md` para aprobar opiniones, gestionar su retirada y conocer las pruebas realizadas. El ZIP está preparado para GitHub; hay que subir sus archivos para activar esta versión en antonitech.es.
+
+
+## Presentación profesional y SEO
+
+Esta versión identifica a Yonathan Alvarado como el profesional freelance detrás de Antoni Tech: desarrollo web y de software, diseño gráfico y sistemas, desde Reus (Tarragona) para toda España y clientes internacionales. La biografía, proyectos y contacto reflejan su experiencia en proyectos para España, Suiza y Estados Unidos.
+
+Se han actualizado los títulos y descripciones de las cinco páginas principales, los datos para compartir en redes y la autoría. El sitemap y las URLs existentes se mantienen. Estos cambios no verifican Search Console ni garantizan posiciones en Google: la indexación y los resultados deben comprobarse allí tras publicar.
