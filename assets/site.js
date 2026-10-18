@@ -122,7 +122,7 @@
       description: ['Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.', 'Websites, mobile apps and custom software to bring your next project to life.'] },
     { eyebrow: ['SOLUCIONES DIGITALES · FREELANCE', 'DIGITAL SOLUTIONS · FREELANCE'],
       es: ['WEB.', 'APPS.', 'SOFTWARE.'], en: ['WEB.', 'APPS.', 'SOFTWARE.'],
-      description: ['Desarrollo web y móvil, automatización, CRM y sistemas para emprendedores y empresas.', 'Web and mobile development, automation, CRM and IT systems for entrepreneurs and businesses.'] }
+      description: ['Diseño y desarrollo soluciones digitales a medida para tu negocio.', 'I design and develop digital solutions tailored to your business.'] }
   ];
   let activeSlide = 0;
   let slideshowTimer = null;

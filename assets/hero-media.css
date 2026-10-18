@@ -1,11 +1,11 @@
 /* Three media scenes: complete film, original still, software still. */
-.hero-services-art{position:absolute;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s ease;pointer-events:none}
+.hero-services-art{position:absolute;inset:var(--header-full-height,234px) 0 0;z-index:-3;width:100%;height:calc(100% - var(--header-full-height,234px));object-fit:contain;object-position:right bottom;opacity:0;transition:opacity .6s ease;pointer-events:none}
 .hero .hero-art{transition:opacity .6s ease}
 .hero.is-services .hero-services-art{opacity:1}
 .hero.is-services .hero-art,.hero.is-film .hero-art{opacity:0}
 .hero.is-services .hero-logo-light,.hero.is-film .hero-logo-light{display:none}
-.hero.is-services{--text:#191b1e;--muted:#414447;--cyan:#30363b;background:#eee8de;color:var(--text)}
-.hero.is-services .hero-shade{background:linear-gradient(90deg,#f3eee5b3,transparent 62%),linear-gradient(0deg,#f3eee570,transparent 24%)}
+.hero.is-services{--text:#191b1e;--muted:#414447;--cyan:#30363b;background:#e8e5e1;color:var(--text)}
+.hero.is-services .hero-shade{background:linear-gradient(90deg,#e8e5e1 0%,#e8e5e155 24%,transparent 38%)}
 .hero.is-services .eyebrow,.hero.is-services .hero-signature p,.hero.is-services .hero-description{color:var(--muted)}
 .hero.is-services .hero-signature p:first-child{color:var(--text)}
 .hero.is-services .button-solid{background:var(--text);color:#fff}
@@ -39,7 +39,7 @@
 @media(min-width:961px){.hero-film-start{top:auto;left:auto;right:var(--pad);bottom:calc(var(--hero-footer-height,140px) + 78px);transform:none}}
 @media(max-width:760px){
   .hero .hero-art,.hero .hero-logo-light{height:calc(var(--header-full-height,212px) + 56.25vw + 24px)}
-  .hero-services-art{top:var(--header-full-height,212px);height:56.25vw;object-fit:contain;background:#eee8de}
+  .hero-services-art{top:var(--header-full-height,212px);height:56.25vw;object-fit:contain;background:#e8e5e1}
   .hero-film-layer{top:0;bottom:auto;left:0;right:0;height:calc(var(--header-full-height,212px) + 56.25vw + 24px)}
   .hero-film-layer::after{background:linear-gradient(0deg,#03050780,transparent 25%)}
   .hero.is-film .hero-content{visibility:visible}
@@ -50,3 +50,14 @@
   .studi-official-art{padding:28px}
 }
 @media(prefers-reduced-motion:reduce){.hero-services-art,.hero .hero-art,.hero-film-layer{transition:none}}
+
+/* Approved studio composition: real HTML copy over illustrative project screens. */
+.hero.is-services h1{text-shadow:none}
+.hero.is-services .hero-actions .button-solid{clip-path:none;border-radius:8px}
+@media(min-width:961px){
+  .hero.is-services .hero-content{padding-top:calc(var(--header-full-height,234px) + 40px)}
+  .hero.is-services h1{width:38%;font-size:clamp(78px,7.2vw,120px);line-height:.93}
+  .hero.is-services .hero-description{width:33vw;max-width:430px;min-height:3em;font-size:clamp(16px,1.2vw,20px)}
+  .hero.is-services .hero-actions{max-width:40%;flex-wrap:wrap;gap:18px 24px;margin-top:24px}
+  .hero.is-services .hero-actions .text-link{font-size:17px}
+}

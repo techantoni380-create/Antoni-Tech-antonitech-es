@@ -181,7 +181,7 @@ Los archivos assets/navigation.css y assets/navigation.js contienen este comport
 
 El ciclo de Inicio muestra el vídeo de Auto Cibernético completo (20,01 segundos), la imagen metálica original durante 8 segundos y la imagen de software durante 8 segundos. Después vuelve a empezar. El vídeo avanza por su evento de finalización, no por el temporizador de las imágenes. El ciclo activo dura aproximadamente 36 segundos.
 
-La tercera escena presenta una interfaz web, una aplicación móvil y módulos de software conectados sobre un fondo blanco perla, con detalles azul cobalto y ámbar. Cambia el ambiente antes de volver al vídeo inicial. El titular, los botones y los controles pasan a tonos oscuros para conservar el contraste, y la navegación mantiene su fondo oscuro. Los textos permanecen como HTML traducible. El vídeo ocupa la misma área que la primera imagen, de lado a lado y sin marco. Se adapta sin deformarse mediante object-fit: cover; puede recortar los bordes según la pantalla. En ordenador mantiene el titular y los enlaces visibles sobre un degradado oscuro; en móvil y tablet el texto queda debajo del área visual.
+La tercera escena presenta el montaje aprobado de Almazara, Todos con Hernán y Edis Alvarado en un portátil, una tablet y un móvil sobre un estudio gris perla. Las pantallas son ilustrativas a partir de recursos de los proyectos, no capturas exactas. El titular, los botones y los controles pasan a tonos oscuros para conservar el contraste, y la navegación mantiene su fondo oscuro. Los textos permanecen como HTML traducible. El vídeo ocupa la misma área que la primera imagen, de lado a lado y sin marco. Se adapta sin deformarse mediante object-fit: cover; puede recortar los bordes según la pantalla. En ordenador mantiene el titular y los enlaces visibles sobre un degradado oscuro; en móvil y tablet el texto queda debajo del área visual.
 
 El vídeo inicia sin sonido, con botón para activarlo. El control de pausa detiene la presentación y el vídeo; al reanudar conserva el tiempo pendiente. El ciclo se suspende al ocultar la pestaña o salir de la cabecera. Movimiento reducido y ahorro de datos requieren reproducción manual. Si el navegador bloquea el inicio, aparece Reproducir vídeo. Si falla el archivo, se pasa a la imagen siguiente. Las tres marcas permiten elegir escena.
 
@@ -232,13 +232,13 @@ Se han comprobado estructura y enlaces de las doce páginas, sintaxis JavaScript
 
 
 
-## Nueva tercera imagen: diseño de software
+## Nueva tercera imagen: proyectos en dispositivos
 
-La tercera escena usa ahora una interfaz web, una app móvil y módulos conectados sobre un fondo blanco perla con detalles azul cobalto y ámbar. El archivo assets/hero-services.png mantiene 1672 × 941 px, los 8 segundos de exposición y el montaje responsive. Se ha creado con la herramienta integrada de generación de imágenes; el prompt completo está en _source/hero-services-prompt.txt. La imagen se ha inspeccionado y las referencias se han comprobado; falta la revisión del montaje final en navegador.
+La composición aprobada utiliza los recursos visuales de Almazara, Todos con Hernán y Edis Alvarado. Archivo: `assets/hero-services.png`, 1860 × 845 px. Se ha creado con la herramienta integrada de generación de imágenes; el prompt completo está en `_source/hero-services-prompt.txt`. Las pantallas son montajes ilustrativos. El titular, la descripción y el enlace de presupuesto a WhatsApp siguen siendo HTML traducible. En escritorio la fotografía queda debajo de la cabecera, con espacio para el texto a la izquierda; en móvil y tablet aparece encima del texto, encuadrada hacia la derecha. Mantiene sus 8 segundos y la secuencia original. Estructura, enlaces y sintaxis JavaScript comprobados; revisión visual en navegador pendiente.
 
 ## Actualización de la cabecera
 
-Secuencia: vídeo completo con texto visible → imagen original durante 8 s → tercera imagen actual durante 8 s. En móvil y tablet el texto permanece debajo del vídeo. WhatsApp y Menú tienen fondos oscuros sólidos y bordes más definidos. La tercera imagen se mantiene hasta definir su sustitución.
+Secuencia: vídeo completo con texto visible → imagen original durante 8 s → tercera imagen actual durante 8 s. En móvil y tablet el texto permanece debajo del vídeo. WhatsApp y Menú tienen fondos oscuros sólidos y bordes más definidos. La tercera imagen se ha sustituido por la composición de proyectos aprobada.
 
 ## Portada móvil y presentación personal
 
