@@ -108,20 +108,18 @@
   const hero = document.querySelector('.hero');
   const slideButtons = [...document.querySelectorAll('[data-slide]')];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const heroDesktop = window.matchMedia('(min-width: 961px)');
   const heroVideo = hero?.querySelector('.hero-film');
   const heroFilmLayer = hero?.querySelector('.hero-film-layer');
-  const heroCopy = hero?.querySelector('.hero-content');
   const heroServicesImage = hero?.querySelector('.hero-services-art');
   const heroSound = hero?.querySelector('.hero-sound');
   const heroStart = hero?.querySelector('.hero-film-start');
   const slides = [
-    { eyebrow: ['DESARROLLO WEB · DISEÑO · TECNOLOGÍA', 'WEB DEVELOPMENT · DESIGN · TECHNOLOGY'],
-      es: ['DISEÑO.', 'CÓDIGO.', 'IMPACTO.'], en: ['DESIGN.', 'CODE.', 'IMPACT.'],
-      description: ['Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.', 'Websites, mobile apps and custom software to bring your next project to life.'] },
     { eyebrow: ['ANTONI TECH · EN MOVIMIENTO', 'ANTONI TECH · IN MOTION'],
       es: ['TU IDEA.', 'EN', 'ACCIÓN.'], en: ['YOUR IDEA.', 'IN', 'MOTION.'],
       description: ['Diseño y tecnología para llevar tu próximo proyecto más lejos.', 'Design and technology to take your next project further.'] },
+    { eyebrow: ['DESARROLLO WEB · DISEÑO · TECNOLOGÍA', 'WEB DEVELOPMENT · DESIGN · TECHNOLOGY'],
+      es: ['DISEÑO.', 'CÓDIGO.', 'IMPACTO.'], en: ['DESIGN.', 'CODE.', 'IMPACT.'],
+      description: ['Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.', 'Websites, mobile apps and custom software to bring your next project to life.'] },
     { eyebrow: ['SOLUCIONES DIGITALES · FREELANCE', 'DIGITAL SOLUTIONS · FREELANCE'],
       es: ['WEB.', 'APPS.', 'SOFTWARE.'], en: ['WEB.', 'APPS.', 'SOFTWARE.'],
       description: ['Desarrollo web y móvil, automatización, CRM y sistemas para emprendedores y empresas.', 'Web and mobile development, automation, CRM and IT systems for entrepreneurs and businesses.'] }
@@ -171,10 +169,6 @@
   }
   function syncHeroLayout() {
     if (!hero) return;
-    const hideCopy = activeSlide === 1 && heroDesktop.matches;
-    heroCopy.inert = hideCopy;
-    if (hideCopy) heroCopy.setAttribute('aria-hidden','true');
-    else heroCopy.removeAttribute('aria-hidden');
     const bottom = hero.querySelector('.hero-bottom');
     hero.style.setProperty('--hero-footer-height',`${bottom.offsetHeight}px`);
   }
@@ -184,9 +178,9 @@
     playbackRequest++;
     heroVideo.pause();
     activeSlide = (index + slides.length) % slides.length;
-    if (activeSlide === 1 && videoFailed) activeSlide = 2;
+    if (activeSlide === 0 && videoFailed) activeSlide = 1;
     imageRemaining = 8000;
-    const film = activeSlide === 1;
+    const film = activeSlide === 0;
     hero.classList.toggle('is-film',film);
     hero.classList.toggle('is-services',activeSlide === 2);
     document.body.classList.toggle('hero-light',activeSlide === 2);
@@ -213,13 +207,13 @@
       heroVideo?.pause();
       return;
     }
-    if (activeSlide === 1) {
-      if (heroVideo.ended) { renderSlide(2); return; }
+    if (activeSlide === 0) {
+      if (heroVideo.ended) { renderSlide(1); return; }
       heroVideo.play().then(() => {
         if (request !== playbackRequest) return;
         heroStart.hidden = true;
       }).catch(() => {
-        if (request !== playbackRequest || activeSlide !== 1) return;
+        if (request !== playbackRequest || activeSlide !== 0) return;
         paused = true;
         heroStart.hidden = false;
         updateMotionLabel();
@@ -253,7 +247,7 @@
   });
   document.addEventListener('visibilitychange',scheduleSlideshow);
   reducedMotion.addEventListener('change',event => { if (event.matches) setPaused(true); });
-  heroDesktop.addEventListener('change',syncHeroLayout);
+  window.addEventListener('resize',syncHeroLayout);
   heroSound?.addEventListener('click',() => {
     heroVideo.muted = !heroVideo.muted;
     updateHeroSound();
@@ -263,11 +257,11 @@
     heroVideo.controls = false;
     heroVideo.loop = false;
     heroVideo.addEventListener('ended',() => {
-      if (activeSlide === 1 && !paused && !document.hidden && heroVisible) renderSlide(2);
+      if (activeSlide === 0 && !paused && !document.hidden && heroVisible) renderSlide(1);
     });
     heroVideo.addEventListener('error',() => {
       videoFailed = true;
-      if (activeSlide === 1) renderSlide(2,true);
+      if (activeSlide === 0) renderSlide(1,true);
     });
     if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
       heroVisible = entries[0].isIntersecting;
@@ -508,5 +502,5 @@
     });
   }
   setLanguage(language);
-  scheduleSlideshow();
+  renderSlide(0);
 })();

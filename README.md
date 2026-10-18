@@ -177,11 +177,11 @@ En pantallas de hasta 960 px, la barra compacta muestra logo, WhatsApp y Menú. 
 Los archivos assets/navigation.css y assets/navigation.js contienen este comportamiento. Si JavaScript está desactivado, la cabecera completa y los enlaces siguen disponibles. La transición respeta el movimiento reducido. Se han comprobado enlaces, sintaxis y estados de interacción mediante simulación; la revisión visual en navegador sigue pendiente.
 
 
-## Cabecera: imagen, vídeo completo e imagen de servicios
+## Cabecera: vídeo completo, imagen original e imagen de servicios
 
-El ciclo de Inicio muestra la imagen metálica original durante 8 segundos, el vídeo de Auto Cibernético completo (20,01 segundos) y la nueva imagen de servicios durante 8 segundos. Después vuelve a empezar. El vídeo avanza por su evento de finalización, no por el temporizador de las imágenes. El ciclo activo dura aproximadamente 36 segundos.
+El ciclo de Inicio muestra el vídeo de Auto Cibernético completo (20,01 segundos), la imagen metálica original durante 8 segundos y la imagen de software durante 8 segundos. Después vuelve a empezar. El vídeo avanza por su evento de finalización, no por el temporizador de las imágenes. El ciclo activo dura aproximadamente 36 segundos.
 
-La tercera escena presenta web, apps y software con una composición editorial clara: formas escultóricas en marfil y grafito, sin neones ni dispositivos. Cambia el ambiente antes de volver a la portada original. El titular, los botones y los controles pasan a tonos oscuros para conservar el contraste, y la navegación mantiene su fondo oscuro. Los textos permanecen como HTML traducible. El vídeo ocupa la misma área que la primera imagen, de lado a lado y sin marco. Se adapta sin deformarse mediante object-fit: cover; puede recortar los bordes según la pantalla. En ordenador no lleva titular superpuesto; en móvil el texto queda debajo del área visual.
+La tercera escena presenta una interfaz web, una aplicación móvil y módulos de software conectados sobre un fondo blanco perla, con detalles azul cobalto y ámbar. Cambia el ambiente antes de volver al vídeo inicial. El titular, los botones y los controles pasan a tonos oscuros para conservar el contraste, y la navegación mantiene su fondo oscuro. Los textos permanecen como HTML traducible. El vídeo ocupa la misma área que la primera imagen, de lado a lado y sin marco. Se adapta sin deformarse mediante object-fit: cover; puede recortar los bordes según la pantalla. En ordenador mantiene el titular y los enlaces visibles sobre un degradado oscuro; en móvil y tablet el texto queda debajo del área visual.
 
 El vídeo inicia sin sonido, con botón para activarlo. El control de pausa detiene la presentación y el vídeo; al reanudar conserva el tiempo pendiente. El ciclo se suspende al ocultar la pestaña o salir de la cabecera. Movimiento reducido y ahorro de datos requieren reproducción manual. Si el navegador bloquea el inicio, aparece Reproducir vídeo. Si falla el archivo, se pasa a la imagen siguiente. Las tres marcas permiten elegir escena.
 
@@ -228,10 +228,18 @@ El carrusel incluye 39 tecnologías, con Angular y Azure. Los SVG se han obtenid
 
 `assets/responsive.css`, cargado al final, adapta las doce páginas. Hasta 960 px aparece el menú táctil tanto al inicio como durante el scroll, la cabecera separa imagen/vídeo y texto, y la galería muestra un proyecto con las flechas debajo. Las rejillas se reorganizan a 1100/960/600/420 px; los formularios, tarjetas, enlaces y textos tienen límites de anchura. Se contemplan los márgenes seguros del dispositivo y pantallas horizontales de poca altura. El asistente reduce su botón en móvil y ajusta su ventana al área visible cuando aparece el teclado.
 
-Se han comprobado estructura y enlaces de las doce páginas, sintaxis JavaScript y los estados del menú táctil y del cambio entre vídeo y texto al cruzar el tamaño de tablet. La secuencia de portada sigue siendo imagen 8 s, vídeo completo e imagen 8 s. No se ha realizado renderizado en navegador ni prueba en dispositivos reales porque control-browser no está disponible; la adaptación no supone una garantía de compatibilidad perfecta con cualquier dispositivo.
+Se han comprobado estructura y enlaces de las doce páginas, sintaxis JavaScript y los estados del menú táctil y del cambio entre vídeo y texto al cruzar el tamaño de tablet. La secuencia de portada sigue siendo vídeo completo, imagen original 8 s y tercera imagen 8 s. No se ha realizado renderizado en navegador ni prueba en dispositivos reales porque control-browser no está disponible; la adaptación no supone una garantía de compatibilidad perfecta con cualquier dispositivo.
 
 
 
 ## Nueva tercera imagen: diseño de software
 
 La tercera escena usa ahora una interfaz web, una app móvil y módulos conectados sobre un fondo blanco perla con detalles azul cobalto y ámbar. El archivo assets/hero-services.png mantiene 1672 × 941 px, los 8 segundos de exposición y el montaje responsive. Se ha creado con la herramienta integrada de generación de imágenes; el prompt completo está en _source/hero-services-prompt.txt. La imagen se ha inspeccionado y las referencias se han comprobado; falta la revisión del montaje final en navegador.
+
+## Actualización de la cabecera
+
+Secuencia: vídeo completo con texto visible → imagen original durante 8 s → tercera imagen actual durante 8 s. En móvil y tablet el texto permanece debajo del vídeo. WhatsApp y Menú tienen fondos oscuros sólidos y bordes más definidos. La tercera imagen se mantiene hasta definir su sustitución.
+
+## Portada móvil y presentación personal
+
+En móvil y tablet (hasta 960 px), la navegación tiene un fondo sólido y el vídeo y las imágenes se muestran debajo, en un marco 16:9 que conserva la composición completa. El titular fluye en líneas naturales y ocupa menos altura; los márgenes del texto y los controles se han compactado. Se elimina el bloque «Formación y base técnica» de Sobre mí y se conserva la reseña «Una trayectoria que conecta disciplinas». La secuencia y duración de las tres escenas siguen iguales. Revisión visual en navegador pendiente.
