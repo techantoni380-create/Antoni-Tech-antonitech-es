@@ -243,3 +243,7 @@ Secuencia: vídeo completo con texto visible → imagen original durante 8 s →
 ## Portada móvil y presentación personal
 
 En móvil y tablet (hasta 960 px), la navegación tiene un fondo sólido y el vídeo y las imágenes se muestran debajo, en un marco 16:9 que conserva la composición completa. El titular fluye en líneas naturales y ocupa menos altura; los márgenes del texto y los controles se han compactado. Se elimina el bloque «Formación y base técnica» de Sobre mí y se conserva la reseña «Una trayectoria que conecta disciplinas». La secuencia y duración de las tres escenas siguen iguales. Revisión visual en navegador pendiente.
+
+## Opiniones de clientes y usuarios
+
+Nuevo bloque después de Proyectos y antes de Servicios, con estrellas de 1 a 5, tarjetas responsivas y tres opiniones por tanda con «Ver más opiniones». No hay testimonios ficticios ni medias inventadas. El formulario actual permite enviar la opinión a Yonathan por WhatsApp para su revisión; no guarda en una base de datos ni publica automáticamente. La conexión directa, con moderación y almacenamiento, está preparada en `reviews-backend/` y pendiente de elegir una organización y activar un proyecto dedicado.
