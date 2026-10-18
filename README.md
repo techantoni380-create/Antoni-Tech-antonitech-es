@@ -1,8 +1,10 @@
 # Antoni Tech · antonitech.es
 
-Proyecto completo listo para GitHub Pages. Versión del 18 de octubre de 2026.
+Actualización del proyecto para GitHub Pages. Versión del 18 de octubre de 2026.
 
-Incluye nueve páginas, español e inglés, cabecera metálica, brillo del logo cada dos segundos, presentación de tres mensajes, lista de 21 vídeos en bucle, servicios, proyectos, redes sociales y contacto.
+**Antes de publicar:** las nuevas páginas Aviso legal, Política de privacidad y Política de cookies son borradores visibles, marcados como noindex y excluidos del sitemap. Deben completarse y validarse antes de usarlas como textos definitivos. El diseño del pie ya está terminado. Faltan la identificación legal completa, NIF y domicilio profesional; para privacidad y cookies, confirmar el tratamiento real, conservación, proveedores y tecnologías de terceros en el dominio publicado. No basta con retirar el aviso de borrador.
+
+Incluye nueve páginas principales y tres borradores legales, español e inglés, cabecera metálica, brillo del logo cada dos segundos, cabecera con dos imágenes y un vídeo, lista de 21 vídeos en bucle, servicios, proyectos, redes sociales y contacto.
 
 ## 1. Subir al repositorio
 
@@ -51,7 +53,7 @@ Guía oficial: https://docs.github.com/en/pages/configuring-a-custom-domain-for-
 
 ## Editar el proyecto
 
-- Las nueve páginas son archivos `index.html` dentro de sus respectivas carpetas.
+- Las doce páginas son archivos `index.html` dentro de sus respectivas carpetas.
 - `assets/site.css`: estilos generales.
 - `assets/minimal.css`: cabecera, presentación minimalista y pulso de luz.
 - `assets/site.js`: idioma, presentación, filtros, vídeo y contacto.
@@ -66,7 +68,7 @@ python _source/build_site.py
 python _source/check_site.py
 ```
 
-La generación vuelve a escribir las nueve páginas: no combines cambios manuales en los HTML con una regeneración sin trasladarlos antes a las plantillas. El CSS y el JavaScript se editan directamente.
+La generación vuelve a escribir las doce páginas: no combines cambios manuales en los HTML con una regeneración sin trasladarlos antes a las plantillas. El CSS y el JavaScript se editan directamente.
 
 Para verlo en tu ordenador con Python instalado:
 
@@ -80,7 +82,7 @@ Abre http://localhost:8000. Los enlaces utilizan rutas relativas y funcionan tan
 
 `CNAME`, las URL canónicas, las etiquetas para compartir, `sitemap.xml` y `robots.txt` están preparados para **https://antonitech.es**. El paquete no incluye credenciales ni configuración del alojamiento anterior.
 
-Comprobaciones realizadas: nueve páginas, enlaces internos, recursos, traducciones y sintaxis JavaScript. La revisión visual e interactiva en navegador queda pendiente.
+Comprobaciones realizadas: doce páginas, enlaces internos, recursos, traducciones y sintaxis JavaScript. La revisión visual e interactiva en navegador queda pendiente.
 
 ## Recursos y licencias
 
@@ -100,7 +102,7 @@ Para actualizar el proyecto existente, extrae el ZIP y copia su contenido en la 
 
 ## Cinta de tecnologías
 
-La cabecera de las nueve páginas se organiza en tres filas: logo y redes, cinta de tecnologías y menú. La cinta muestra directamente las tecnologías, sin título visible y con márgenes laterales iguales. Los 37 logos y sus nombres se muestran en blanco puro, en celdas del mismo ancho y con separación uniforme. Incluye Autodesk 3ds Max, AutoCAD, CorelDRAW y PrestaShop. El carrusel se desplaza continuamente en bucle, sin botón de pausa ni interrupción al pasar el cursor o usar el teclado. El movimiento de esta cinta se mantiene siempre activo según el diseño solicitado. Las dimensiones de la cabecera y los márgenes se adaptan a móvil, tableta y ordenador. Fuentes y licencias de los SVG: assets/technologies/.
+La cabecera de todas las páginas se organiza en tres filas: logo y redes, cinta de tecnologías y menú. La cinta muestra directamente las tecnologías, sin título visible y con márgenes laterales iguales. Los 37 logos y sus nombres se muestran en blanco puro, en celdas del mismo ancho y con separación uniforme. Incluye Autodesk 3ds Max, AutoCAD, CorelDRAW y PrestaShop. El carrusel se desplaza continuamente en bucle, sin botón de pausa ni interrupción al pasar el cursor o usar el teclado. El movimiento de esta cinta se mantiene siempre activo según el diseño solicitado. Las dimensiones de la cabecera y los márgenes se adaptan a móvil, tableta y ordenador. Fuentes y licencias de los SVG: assets/technologies/.
 
 
 ## Menú y vista local
@@ -150,3 +152,41 @@ La secuencia contiene 21 vídeos únicos. Se han descartado las copias idéntica
 Inicio incluye una explicación breve del nombre junto a la presentación de Yonathan. Sobre mí desarrolla la historia: Antoni es la forma catalana de Antonio, su segundo nombre, que empezó a usar a raíz de cómo le llamaban en Cataluña; Tech representa su profesión y su pasión por la tecnología. El texto conecta esa historia con el trato directo y el compromiso con cada proyecto. Disponible en español e inglés.
 
 El reproductor tiene ancho completo también en Inicio y Sobre mí. El vídeo conserva su altura proporcional y los textos mantienen márgenes de lectura independientes.
+
+
+## Invitación a empezar un proyecto
+
+El bloque final presenta «Tu idea merece un proyecto a su altura» en una composición con fondo oscuro, acentos sutiles cian y fucsia y dos áreas equilibradas. Explica que la propuesta tendrá alcance, plazos y presupuesto claros. La zona de contacto mantiene la consulta y el asesoramiento totalmente gratuitos y personalizados, el botón Pedir presupuesto por WhatsApp y el trato directo con Yonathan. Se adapta a una columna en móvil e incluye español e inglés.
+
+
+## Pie de página centrado
+
+La marca, el lema, la firma profesional, los enlaces legales, las redes y el cierre están centrados. La firma «Yonathan Alvarado · Freelance Full Stack Developer · Spain» enlaza a Instagram. En móvil, la firma se organiza en tres líneas y los enlaces legales en dos columnas. Los enlaces legales llevan a /aviso-legal/, /privacidad/ y /cookies/ de Antoni Tech, nunca a Almazara. Contacto abre la página de contacto propia.
+
+Los tres documentos son borradores bilingües para revisión. Incluyen solo información conocida y señalan lo pendiente; no certifican el cumplimiento legal. El apartado de cookies reconoce las vistas web externas y no afirma que toda la web esté libre de cookies. Mantener los avisos de borrador y noindex hasta completar la revisión.
+
+La firma destaca Freelance en cian. La portada, la biografía y Sobre mí presentan a Yonathan como desarrollador Full Stack freelance y explican que el cliente trabaja directamente con él.
+
+
+## Cabecera compacta y navegación persistente
+
+Todas las páginas comparten la cabecera completa al inicio y una barra compacta que permanece visible al bajar y subir. La barra incluye logo, menú y WhatsApp; el carrusel permanece en la cabecera inicial. Al volver arriba se recupera el diseño completo. El fondo oscuro, el desenfoque suave y el borde separan la navegación del contenido. La altura del contenido se reserva para evitar saltos.
+
+En pantallas de hasta 960 px, la barra compacta muestra logo, WhatsApp y Menú. El menú se abre con un botón, se cierra con Escape, al pulsar fuera o seleccionar un enlace, y conserva el acceso mediante teclado. Las cuatro fichas de proyectos incluyen Inicio → Proyectos → nombre del proyecto.
+
+Los archivos assets/navigation.css y assets/navigation.js contienen este comportamiento. Si JavaScript está desactivado, la cabecera completa y los enlaces siguen disponibles. La transición respeta el movimiento reducido. Se han comprobado enlaces, sintaxis y estados de interacción mediante simulación; la revisión visual en navegador sigue pendiente.
+
+
+## Cabecera: imagen, vídeo completo e imagen de servicios
+
+El ciclo de Inicio muestra la imagen metálica original durante 8 segundos, el vídeo de Auto Cibernético completo (20,01 segundos) y la nueva imagen de servicios durante 8 segundos. Después vuelve a empezar. El vídeo avanza por su evento de finalización, no por el temporizador de las imágenes. El ciclo activo dura aproximadamente 36 segundos.
+
+La tercera escena presenta web, apps y software con una composición editorial clara: formas escultóricas en marfil y grafito, sin neones ni dispositivos. Cambia el ambiente antes de volver a la portada original. El titular, los botones y los controles pasan a tonos oscuros para conservar el contraste, y la navegación mantiene su fondo oscuro. Los textos permanecen como HTML traducible. El vídeo ocupa la misma área que la primera imagen, de lado a lado y sin marco. Se adapta sin deformarse mediante object-fit: cover; puede recortar los bordes según la pantalla. En ordenador no lleva titular superpuesto; en móvil el texto queda debajo del área visual.
+
+El vídeo inicia sin sonido, con botón para activarlo. El control de pausa detiene la presentación y el vídeo; al reanudar conserva el tiempo pendiente. El ciclo se suspende al ocultar la pestaña o salir de la cabecera. Movimiento reducido y ahorro de datos requieren reproducción manual. Si el navegador bloquea el inicio, aparece Reproducir vídeo. Si falla el archivo, se pasa a la imagen siguiente. Las tres marcas permiten elegir escena.
+
+El vídeo está optimizado a 1920×1080, 24 fps, conservando su duración completa y audio. No se ha añadido otra copia a la lista de 21 vídeos de la biografía. assets/hero-media.css y el bloque de cabecera en assets/site.js controlan esta presentación.
+
+Studi1 utiliza el logo oficial facilitado por el cliente, con sus proporciones originales, tanto en las tarjetas como en la ficha del proyecto. El estado continúa siendo diseño en desarrollo.
+
+Comprobación realizada: secuencia 8 s → final real del vídeo → 8 s, repetición, pausa y reanudación, visibilidad, sonido, recuperación del bloqueo de reproducción y enlaces. La prueba visual y de reproducción en navegador sigue pendiente.

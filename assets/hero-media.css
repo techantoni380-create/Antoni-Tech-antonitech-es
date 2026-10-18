@@ -1,0 +1,46 @@
+/* Three media scenes: still, complete film, still. */
+.hero-services-art{position:absolute;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s ease;pointer-events:none}
+.hero .hero-art{transition:opacity .6s ease}
+.hero.is-services .hero-services-art{opacity:1}
+.hero.is-services .hero-art,.hero.is-film .hero-art{opacity:0}
+.hero.is-services .hero-logo-light,.hero.is-film .hero-logo-light{display:none}
+.hero.is-services{--text:#191b1e;--muted:#414447;--cyan:#30363b;background:#eee8de;color:var(--text)}
+.hero.is-services .hero-shade{background:linear-gradient(90deg,#f3eee5b3,transparent 62%),linear-gradient(0deg,#f3eee570,transparent 24%)}
+.hero.is-services .eyebrow,.hero.is-services .hero-signature p,.hero.is-services .hero-description{color:var(--muted)}
+.hero.is-services .hero-signature p:first-child{color:var(--text)}
+.hero.is-services .button-solid{background:var(--text);color:#fff}
+.hero.is-services .button-solid:hover{background:#373c40}
+.hero.is-services .text-link{color:var(--text);border-color:#44494d}
+.hero.is-services .slide-selector>span{background:#191b1e40}
+.hero.is-services .slide-selector[aria-pressed=true]>span,.hero.is-services .slide-selector:hover>span{background:var(--text)}
+.hero.is-services .motion-toggle>span:last-child{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54'%3E%3Cpath d='M24 1 47 14v26L24 53 1 40V14Z' fill='none' stroke='%23191b1e' stroke-width='1.2'/%3E%3C/svg%3E")}
+.home-page.hero-light .site-header{background:rgba(5,8,13,.97)}
+.hero-film-layer{position:absolute;inset:0;z-index:1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease;background:#030507;overflow:hidden}
+.hero-film-layer::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#030507ed,transparent 24%)}
+.hero-film{width:100%;height:100%;display:block;object-fit:cover;object-position:center;background:#030507}
+.hero.is-film{background:#030507}
+.hero.is-film .hero-film-layer{opacity:1;visibility:visible;pointer-events:auto}
+.hero.is-film .hero-shade{opacity:0}
+.hero-bottom{position:relative;z-index:2}
+.hero-sound,.hero-film-start{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid #ffffff40;border-radius:7px;background:#050a12e8;color:#fff;font:600 11px/1.4 var(--body);backdrop-filter:blur(8px)}
+.hero-sound{position:absolute;z-index:1;right:var(--pad);bottom:calc(var(--hero-footer-height,140px) + 18px)}
+.hero-film-start{position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px}
+.hero-film-start[hidden]{display:none}
+.hero-sound:hover,.hero-film-start:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-sound:focus-visible,.hero-film-start:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.studi-official-art{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:clamp(24px,4vw,70px);background:radial-gradient(ellipse at 70% 25%,#b7df0920,transparent 65%),linear-gradient(135deg,#070b0b,#101510);border:1px solid #b5cf1220}
+.studi-official-art img{display:block;width:100%;max-width:1100px;height:auto;max-height:100%;object-fit:contain;filter:drop-shadow(0 12px 25px #0008)}
+@media(min-width:761px){.hero.is-film .hero-content{visibility:hidden;pointer-events:none}}
+@media(max-width:760px){
+  .hero .hero-art,.hero .hero-logo-light{height:calc(var(--header-full-height,212px) + 56.25vw + 24px)}
+  .hero-services-art{top:var(--header-full-height,212px);height:56.25vw;object-fit:contain;background:#eee8de}
+  .hero-film-layer{top:0;bottom:auto;left:0;right:0;height:calc(var(--header-full-height,212px) + 56.25vw + 24px)}
+  .hero-film-layer::after{background:linear-gradient(0deg,#03050780,transparent 25%)}
+  .hero.is-film .hero-content{visibility:visible}
+  .hero-content{margin-top:0}
+  .hero.is-film .hero-shade,.hero.is-services .hero-shade{display:none}
+  .hero-sound{right:10px;bottom:10px;padding:8px 10px;font-size:10px}
+  .hero-film-start{font-size:12px;white-space:nowrap}
+  .studi-official-art{padding:28px}
+}
+@media(prefers-reduced-motion:reduce){.hero-services-art,.hero .hero-art,.hero-film-layer{transition:none}}

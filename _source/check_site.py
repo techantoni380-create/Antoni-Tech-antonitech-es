@@ -56,7 +56,7 @@ for path in ROOT.rglob('*.html'):
             if url.netloc != 'wa.me' or url.path != '/34635977484' or not parse_qs(url.query).get('text'):
                 errors.append(f'{page.path}: quote link must prepare a WhatsApp message to the confirmed number')
     pages[path.resolve()] = page
-if len(pages) != 9: errors.append(f'Expected 9 pages, got {len(pages)}')
+if len(pages) != 12: errors.append(f'Expected 12 pages, got {len(pages)}')
 
 for path, page in pages.items():
     for ref in page.refs:

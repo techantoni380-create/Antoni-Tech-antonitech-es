@@ -108,20 +108,42 @@
   const hero = document.querySelector('.hero');
   const slideButtons = [...document.querySelectorAll('[data-slide]')];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const heroDesktop = window.matchMedia('(min-width: 761px)');
+  const heroVideo = hero?.querySelector('.hero-film');
+  const heroFilmLayer = hero?.querySelector('.hero-film-layer');
+  const heroCopy = hero?.querySelector('.hero-content');
+  const heroServicesImage = hero?.querySelector('.hero-services-art');
+  const heroSound = hero?.querySelector('.hero-sound');
+  const heroStart = hero?.querySelector('.hero-film-start');
   const slides = [
     { eyebrow: ['DESARROLLO WEB · DISEÑO · TECNOLOGÍA', 'WEB DEVELOPMENT · DESIGN · TECHNOLOGY'],
       es: ['DISEÑO.', 'CÓDIGO.', 'IMPACTO.'], en: ['DESIGN.', 'CODE.', 'IMPACT.'],
       description: ['Webs, apps móviles y software a medida para dar forma a tu próximo proyecto.', 'Websites, mobile apps and custom software to bring your next project to life.'] },
-    { eyebrow: ['WEBS · TIENDAS ONLINE · DISEÑO A MEDIDA', 'WEBSITES · ONLINE STORES · CUSTOM DESIGN'],
-      es: ['TU WEB.', 'TU MARCA.', 'TU ESTILO.'], en: ['YOUR WEB.', 'YOUR BRAND.', 'YOUR STYLE.'],
-      description: ['Una web a tu medida, pensada para presentar tu negocio y conectar con tus clientes.', 'A website tailored to you, designed to introduce your business and connect with your customers.'] },
-    { eyebrow: ['APPS MÓVILES · SOFTWARE · AUTOMATIZACIÓN', 'MOBILE APPS · SOFTWARE · AUTOMATION'],
-      es: ['CONECTA.', 'OPTIMIZA.', 'AVANZA.'], en: ['CONNECT.', 'SIMPLIFY.', 'GROW.'],
-      description: ['Aplicaciones web y móviles, software e integraciones para simplificar el trabajo de tu negocio.', 'Web and mobile apps, software and integrations to simplify the way your business works.'] }
+    { eyebrow: ['ANTONI TECH · EN MOVIMIENTO', 'ANTONI TECH · IN MOTION'],
+      es: ['TU IDEA.', 'EN', 'ACCIÓN.'], en: ['YOUR IDEA.', 'IN', 'MOTION.'],
+      description: ['Diseño y tecnología para llevar tu próximo proyecto más lejos.', 'Design and technology to take your next project further.'] },
+    { eyebrow: ['SOLUCIONES DIGITALES · FREELANCE', 'DIGITAL SOLUTIONS · FREELANCE'],
+      es: ['WEB.', 'APPS.', 'SOFTWARE.'], en: ['WEB.', 'APPS.', 'SOFTWARE.'],
+      description: ['Desarrollo web y móvil, automatización, CRM y sistemas para emprendedores y empresas.', 'Web and mobile development, automation, CRM and IT systems for entrepreneurs and businesses.'] }
   ];
   let activeSlide = 0;
   let slideshowTimer = null;
-  let paused = reducedMotion.matches;
+  let imageRemaining = 8000;
+  let imageTimerStartedAt = null;
+  let paused = reducedMotion.matches || Boolean(navigator.connection?.saveData);
+  let heroVisible = true;
+  let videoFailed = false;
+  let playbackRequest = 0;
+
+  function updateHeroSound() {
+    if (!heroSound) return;
+    const label = language === 'es'
+      ? (heroVideo.muted ? 'Activar sonido' : 'Silenciar')
+      : (heroVideo.muted ? 'Enable sound' : 'Mute');
+    heroSound.querySelector('[data-hero-sound-label]').textContent = label;
+    heroSound.setAttribute('aria-label',label);
+    heroSound.setAttribute('aria-pressed',String(!heroVideo.muted));
+  }
   function updateMotionLabel() {
     if (!motionButton) return;
     const label = language === 'es'
@@ -132,15 +154,47 @@
     motionButton.setAttribute('aria-label', label);
     motionButton.setAttribute('aria-pressed', String(paused));
     document.body.classList.toggle('motion-paused', paused);
+    updateHeroSound();
   }
   function writeSlideText(element, es, en) {
     element.dataset.es = es;
     element.dataset.en = en;
     element.textContent = language === 'es' ? es : en;
   }
+  function clearImageTimer(preserve = true) {
+    window.clearTimeout(slideshowTimer);
+    slideshowTimer = null;
+    if (preserve && imageTimerStartedAt !== null) {
+      imageRemaining = Math.max(0,imageRemaining - (performance.now() - imageTimerStartedAt));
+    }
+    imageTimerStartedAt = null;
+  }
+  function syncHeroLayout() {
+    if (!hero) return;
+    const hideCopy = activeSlide === 1 && heroDesktop.matches;
+    heroCopy.inert = hideCopy;
+    if (hideCopy) heroCopy.setAttribute('aria-hidden','true');
+    else heroCopy.removeAttribute('aria-hidden');
+    const bottom = hero.querySelector('.hero-bottom');
+    hero.style.setProperty('--hero-footer-height',`${bottom.offsetHeight}px`);
+  }
   function renderSlide(index, announce = false) {
     if (!hero) return;
+    clearImageTimer(false);
+    playbackRequest++;
+    heroVideo.pause();
     activeSlide = (index + slides.length) % slides.length;
+    if (activeSlide === 1 && videoFailed) activeSlide = 2;
+    imageRemaining = 8000;
+    const film = activeSlide === 1;
+    hero.classList.toggle('is-film',film);
+    hero.classList.toggle('is-services',activeSlide === 2);
+    document.body.classList.toggle('hero-light',activeSlide === 2);
+    heroFilmLayer.inert = !film;
+    heroFilmLayer.setAttribute('aria-hidden',String(!film));
+    heroServicesImage.setAttribute('aria-hidden',String(activeSlide !== 2));
+    heroStart.hidden = true;
+    if (film) { try { heroVideo.currentTime = 0; } catch (_) {} }
     const slide = slides[activeSlide];
     writeSlideText(hero.querySelector('[data-hero-eyebrow]'), ...slide.eyebrow);
     hero.querySelectorAll('[data-hero-line]').forEach((line, i) => writeSlideText(line, slide.es[i], slide.en[i]));
@@ -149,11 +203,35 @@
     if (announce) document.getElementById('slide-status').textContent = language === 'es'
       ? `Presentación ${activeSlide + 1} de 3: ${slide.es.join(' ')}`
       : `Slide ${activeSlide + 1} of 3: ${slide.en.join(' ')}`;
+    syncHeroLayout();
+    scheduleSlideshow();
   }
   function scheduleSlideshow() {
-    window.clearInterval(slideshowTimer);
-    slideshowTimer = null;
-    if (hero && !paused && !document.hidden) slideshowTimer = window.setInterval(() => renderSlide(activeSlide + 1), 8000);
+    clearImageTimer(true);
+    const request = ++playbackRequest;
+    if (!hero || paused || document.hidden || !heroVisible) {
+      heroVideo?.pause();
+      return;
+    }
+    if (activeSlide === 1) {
+      if (heroVideo.ended) { renderSlide(2); return; }
+      heroVideo.play().then(() => {
+        if (request !== playbackRequest) return;
+        heroStart.hidden = true;
+      }).catch(() => {
+        if (request !== playbackRequest || activeSlide !== 1) return;
+        paused = true;
+        heroStart.hidden = false;
+        updateMotionLabel();
+      });
+      return; // Only the ended event advances the film, never an 8-second timer.
+    }
+    imageTimerStartedAt = performance.now();
+    slideshowTimer = window.setTimeout(() => {
+      slideshowTimer = null;
+      imageTimerStartedAt = null;
+      renderSlide(activeSlide + 1);
+    },imageRemaining);
   }
   function setPaused(next) {
     paused = next;
@@ -163,20 +241,41 @@
   motionButton?.addEventListener('click', () => {
     const next = !paused;
     setPaused(next);
-    document.body.classList.toggle('logo-paused', next);
+    document.body.classList.toggle('logo-paused',next);
   });
   slideButtons.forEach(button => button.addEventListener('click', () => {
-    setPaused(true);
-    renderSlide(Number(button.dataset.slide), true);
+    paused = false;
+    updateMotionLabel();
+    renderSlide(Number(button.dataset.slide),true);
   }));
-  hero?.addEventListener('focusin', event => {
-    if (!motionButton.contains(event.target)) setPaused(true);
+  hero?.addEventListener('focusin',event => {
+    if (!event.target.closest('.hero-controls,.hero-film-layer')) setPaused(true);
   });
-  hero?.addEventListener('pointerenter', event => {
-    if (event.pointerType === 'mouse') setPaused(true);
+  document.addEventListener('visibilitychange',scheduleSlideshow);
+  reducedMotion.addEventListener('change',event => { if (event.matches) setPaused(true); });
+  heroDesktop.addEventListener('change',syncHeroLayout);
+  heroSound?.addEventListener('click',() => {
+    heroVideo.muted = !heroVideo.muted;
+    updateHeroSound();
   });
-  document.addEventListener('visibilitychange', scheduleSlideshow);
-  reducedMotion.addEventListener('change', event => setPaused(event.matches));
+  heroStart?.addEventListener('click',() => setPaused(false));
+  if (heroVideo) {
+    heroVideo.controls = false;
+    heroVideo.loop = false;
+    heroVideo.addEventListener('ended',() => {
+      if (activeSlide === 1 && !paused && !document.hidden && heroVisible) renderSlide(2);
+    });
+    heroVideo.addEventListener('error',() => {
+      videoFailed = true;
+      if (activeSlide === 1) renderSlide(2,true);
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
+      heroVisible = entries[0].isIntersecting;
+      scheduleSlideshow();
+    },{threshold:.15}).observe(hero);
+    if ('ResizeObserver' in window) new ResizeObserver(syncHeroLayout).observe(hero.querySelector('.hero-bottom'));
+    syncHeroLayout();
+  }
 
   const filters = [...document.querySelectorAll('[data-filter]')];
   const cards = [...document.querySelectorAll('.all-work .project-card')];
