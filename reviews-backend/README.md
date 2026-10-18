@@ -1,29 +1,56 @@
-# Opiniones de Antoni Tech
+# Reseñas de Antoni Tech
 
-## Estado de esta entrega
+Sistema activo desde el 18 de octubre de 2026. El formulario envía a Supabase y confirma la recepción solo tras una respuesta HTTP 202. Las nuevas opiniones quedan en `pending`. Cada opinión `approved` crea una tarjeta; se muestran tres y «Ver más opiniones» carga otras tres. La media usa todas las opiniones aprobadas.
 
-El bloque está integrado después de los proyectos y antes de los servicios. Cada opinión publicada genera una tarjeta; se muestran tres inicialmente y «Ver más opiniones» añade otras tres. La media incluye todas las opiniones publicadas, tanto de clientes como de usuarios, sin considerarlas compras verificadas.
+## Revisar y publicar
 
-Actualmente el formulario prepara un mensaje de WhatsApp con nombre público, relación con Antoni Tech, estrellas, comentario y autorización. El visitante confirma el envío en WhatsApp. No se afirma que se haya recibido ni se añade una reseña al navegador como si fuera pública. No se usa localStorage para opiniones. No hay opiniones ficticias.
+1. Abre https://supabase.com/dashboard/project/wveszyuklbjvsddfpjgt/editor .
+2. Comprueba la organización **Antoni Tech**, proyecto **techantoni380-create's Project**.
+3. Abre la tabla **antoni_reviews** y lee el nombre, relación, puntuación y comentario.
+4. Cambia únicamente **status**: `pending` = en revisión y oculto; `approved` = publicado; `rejected` = oculto.
+5. Guarda. El cambio se verá al cargar o recargar la web.
 
-`assets/reviews-published.json` contiene las opiniones autorizadas y revisadas del modo manual (inicialmente vacío). Para publicar una opinión real recibida, añadir un objeto con `id` único, `name`, `audience` (`client` o `visitor`), `rating` (entero 1–5), `body`, `status: "approved"` y `created_at` (fecha ISO). Conservar el texto y la puntuación de la persona. Aplicar los mismos criterios de moderación a valoraciones positivas y negativas. Volver a publicar el sitio y el export de GitHub.
+Conservar las estrellas y el texto del autor. Aplicar los mismos criterios a valoraciones favorables y críticas. No se presentan como compras verificadas. No hay avisos automáticos por email/WhatsApp: revisa la tabla de pendientes. No existe un panel administrativo público.
 
-## Conexión directa preparada, sin activar
+La eliminación se realiza manualmente desde Supabase, atendiendo las solicitudes de retirada y la necesidad de conservación. Las opiniones no se borran automáticamente por antigüedad. La revisión automática rechazó un borrado tras 30 días porque ese plazo no estaba autorizado; no se activó. Acordar un plazo antes de automatizarlo.
 
-No se ha creado un proyecto de Supabase ni modificado el proyecto «Todos con Hernán». La herramienta exige que el usuario elija una organización antes de crear un proyecto. Solo se ha localizado una organización con ese nombre. Una vez elegida, consultar el coste y pedir autorización si no es cero; crear un proyecto independiente para Antoni Tech, preferiblemente en Europa.
+## Configuración
 
-1. Aplicar `setup.sql` al proyecto nuevo mediante la herramienta de migración; registrar la migración real devuelta, sin inventar su identidad. No ejecutar este esquema en un proyecto ajeno ni sobre tablas existentes.
-2. Revisar con una consulta las restricciones, RLS, permisos y funciones. Ejecutar el asesor de seguridad. Las tablas y RPC no conceden acceso a `anon` ni a `authenticated`; la función Edge accede con una clave secreta del servidor.
-3. Desplegar `index.ts`, `handler.mjs` y `assets/reviews-core.mjs`, respetando las rutas relativas. No hay dependencias externas. Usar `verify_jwt: false` porque el código comprueba `apikey` contra las claves publicables de Supabase. No es una identificación del autor; son opiniones públicas moderadas.
-4. Confirmar que `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEYS` y `SUPABASE_SECRET_KEYS` existen en el entorno de Supabase. Nunca poner claves secretas en HTML, JavaScript del navegador o GitHub.
-5. Probar envío válido a pendiente, rechazo de valores inválidos, intento de autopublicación, lectura pública sin pendientes, duplicado con el mismo UUID, límites y aprobación/rechazo desde el panel de Supabase. Eliminar los datos de prueba antes de activar la web. Estas pruebas remotas siguen pendientes.
-6. Completar la información de privacidad del nuevo tratamiento y del proveedor antes de activar. El envío directo conserva nombre público, relación, puntuación, comentario, consentimiento y fecha; el límite usa una dirección IP transformada con HMAC y fecha, en una tabla separada que elimina entradas con más de dos días al recibir nuevos envíos. Supabase puede conservar sus propios registros; no se afirma retención cero. Definir conservación de pendientes y el procedimiento de retirada.
-7. Configurar el endpoint real y la clave **publicable** en `reviews-config.mjs`. Cambiar también la versión/comentario de `reviews.mjs` para renovar su hash de recurso, reconstruir y publicar ambas versiones. El formulario pasará a envío directo y solo mostrará éxito cuando reciba HTTP 202 con `status: pending`.
+- Proyecto: `wveszyuklbjvsddfpjgt`, organización Antoni Tech, base de datos en Frankfurt (eu-central-1).
+- Función Edge: `antoni-reviews`.
+- Endpoint: https://wveszyuklbjvsddfpjgt.supabase.co/functions/v1/antoni-reviews
+- Configuración pública: `assets/reviews-config.mjs`.
+- El proyecto Todos con Hernán es independiente y no se ha modificado.
 
-Las reseñas se moderan en la tabla `antoni_reviews` del panel de Supabase cambiando `status` a `approved` o `rejected`. El navegador no puede hacerlo. No existe un panel administrativo público.
+El navegador incluye solo una clave **publicable**. Las claves secretas se leen del entorno de Supabase en el servidor; nunca deben copiarse al ZIP, al navegador o a GitHub. `setup.sql` documenta la migración inicial `antoni_reviews_initial`, ya aplicada. No volver a ejecutarlo sobre las tablas existentes.
 
-Límites preparados: 5 envíos por identificador de red y día; 60 globales por día, aplicados de forma atómica en Postgres. El campo trampa y los límites reducen el spam, pero no equivalen a un CAPTCHA. Los rechazos nunca dependen del número de estrellas. Antes de crecer el tráfico se puede añadir un control adicional según el abuso observado.
+Las tablas tienen RLS y no conceden acceso a `anon` ni `authenticated`; las funciones SQL tampoco. El servidor usa su clave secreta para las dos operaciones definidas. La función Edge usa `verify_jwt: false` porque valida la cabecera `apikey` con las claves publicables actuales. Esta clave identifica la aplicación, no a la persona.
 
-Documentación consultada: https://supabase.com/docs/guides/functions/auth y https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys (18/10/2026). La implementación usa las claves publicables/secretas actuales y no depende de JWT anon heredados.
+Para desplegar otra versión de la función, subir `index.ts`, `handler.mjs` y `assets/reviews-core.mjs` conservando sus rutas relativas. No hay dependencias externas. Al cambiar la configuración pública, cambiar también su versión de importación dentro de `reviews.mjs` y reconstruir la web.
 
-Pruebas locales: `node --test reviews-backend/reviews.test.mjs`. Validan comportamiento con dobles de prueba; no sustituyen la verificación de Postgres y Supabase una vez elegida la organización.
+## Protección y privacidad
+
+Se exige nombre público, relación con el proyecto, valoración entera de 1 a 5, comentario de 20 a 1200 caracteres y consentimiento. Hay campo trampa y límites atómicos de 5 envíos por identificador de red y día, y 60 globales por día. Estas medidas reducen spam; no son un CAPTCHA ni verificación de identidad.
+
+La IP se transforma mediante HMAC y fecha; el identificador queda separado de las opiniones. Las entradas del límite con más de dos días se eliminan al recibir nuevos envíos. Supabase puede conservar registros técnicos bajo sus condiciones.
+
+La página de privacidad explica el tratamiento directo y enlaza el acuerdo de Supabase. El resto de datos legales incompletos sigue pendiente; esta integración no certifica cumplimiento legal integral.
+
+## Validación
+
+- Ocho pruebas locales superadas: `node --test reviews-backend/reviews.test.mjs`.
+- Prueba real de Postgres en transacción revertida: pendiente, idempotencia, aprobación, rechazo, valoraciones de 1 y 5, media 3/5, paginación y límite atómico.
+- HTTP real: estado vacío, CORS, claves incorrectas, métodos no admitidos, validación, consentimiento, campo trampa, envío a pendiente, reintento sin duplicado y bloqueo del acceso directo a tablas y RPC.
+- Tres envíos sintéticos quedaron pendientes y se eliminaron después. Estado final: cero opiniones.
+- La revisión automática bloqueó publicar reseñas sintéticas para probar su lectura HTTP. La aprobación y media se verificaron con la transacción revertida; no quedó ningún testimonio ficticio publicado.
+- Asesor de rendimiento: sin hallazgos. Seguridad: solo dos avisos informativos de RLS sin políticas, intencionados porque las tablas son privadas y solo accede el servidor. Referencia: https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy .
+- Doce páginas, enlaces, formularios, traducciones y sintaxis comprobados. Revisión visual e interacción en navegador pendiente: control-browser no estaba disponible.
+
+## Publicar en antonitech.es
+
+El ZIP está configurado para el mismo servicio. Sustituye los archivos de tu repositorio, conserva su configuración de GitHub y realiza Commit/Push. La publicación de Sites y la de tu dominio en GitHub son independientes. Después de publicar, puedes enviar una opinión real y revisarla desde Supabase.
+
+Documentación:
+- https://supabase.com/docs/guides/functions/auth
+- https://supabase.com/docs/guides/functions/secrets
+- https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys

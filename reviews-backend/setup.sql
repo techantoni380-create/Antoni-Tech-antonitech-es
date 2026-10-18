@@ -1,4 +1,5 @@
--- Prepared schema for a NEW, dedicated Antoni Tech project. Not applied yet.
+-- Initial schema applied to the dedicated Antoni Tech project on 2026-10-18.
+-- Reference only on the active project: do not run again over existing tables.
 -- No customer data or credentials belong in this file.
 begin;
 create table public.antoni_reviews (

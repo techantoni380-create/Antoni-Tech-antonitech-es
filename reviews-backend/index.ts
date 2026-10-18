@@ -1,4 +1,4 @@
-// Prepared Supabase Edge Function. Deploy only to the selected Antoni Tech project.
+// Supabase Edge Function for the dedicated Antoni Tech project.
 // verify_jwt=false is required for new publishable keys; handler.mjs checks apikey.
 import {handleReviews} from './handler.mjs';
 

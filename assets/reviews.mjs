@@ -1,4 +1,4 @@
-import {reviewsConfig as config} from './reviews-config.mjs';
+import {reviewsConfig as config} from './reviews-config.mjs?v=20261018-direct';
 import {approvedReviews, reviewSummary, validateReview, whatsappReviewUrl} from './reviews-core.mjs';
 
 const section=document.querySelector('#opiniones');
@@ -90,7 +90,7 @@ if(section){
       const response=await fetch(config.endpoint,{method:'POST',headers:{'Content-Type':'application/json',apikey:config.publishableKey},credentials:'omit',body:JSON.stringify({...input,submissionId}),signal:AbortSignal.timeout(15000)});
       const result=await response.json();
       if(response.status===429){formState='limited';return;}
-      if(!response.ok||result.status!=='pending')throw new Error('submit');
+      if(response.status!==202||result.status!=='pending')throw new Error('submit');
       form.reset();submissionId=crypto.randomUUID();formState='received';
     }catch{formState='error';}
     finally{sending=false;updateForm();}
