@@ -1,0 +1,224 @@
+[
+  {
+    "slug": "html5",
+    "label": "HTML5",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg",
+    "bytes": 415
+  },
+  {
+    "slug": "css3",
+    "label": "CSS3",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg",
+    "bytes": 465
+  },
+  {
+    "slug": "javascript",
+    "label": "JavaScript",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg",
+    "bytes": 1101
+  },
+  {
+    "slug": "json",
+    "label": "JSON",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/json/json-plain.svg",
+    "bytes": 873
+  },
+  {
+    "slug": "react",
+    "label": "React",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
+    "bytes": 2387
+  },
+  {
+    "slug": "python",
+    "label": "Python",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-plain.svg",
+    "bytes": 1052
+  },
+  {
+    "slug": "java",
+    "label": "Java",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-plain.svg",
+    "bytes": 1477
+  },
+  {
+    "slug": "windows11",
+    "label": "Windows",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/windows11/windows11-original.svg",
+    "bytes": 214
+  },
+  {
+    "slug": "linux",
+    "label": "Linux",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-plain.svg",
+    "bytes": 2824
+  },
+  {
+    "slug": "apple",
+    "label": "macOS",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/apple/apple-original.svg",
+    "bytes": 691
+  },
+  {
+    "slug": "wordpress",
+    "label": "WordPress",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/wordpress/wordpress-plain.svg",
+    "bytes": 1652
+  },
+  {
+    "slug": "woocommerce",
+    "label": "WooCommerce",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/woocommerce/woocommerce-plain.svg",
+    "bytes": 1031
+  },
+  {
+    "slug": "prestashop",
+    "label": "PrestaShop",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/prestashop.svg",
+    "bytes": 3523
+  },
+  {
+    "slug": "git",
+    "label": "Git",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-plain.svg",
+    "bytes": 795
+  },
+  {
+    "slug": "github",
+    "label": "GitHub",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg",
+    "bytes": 1866
+  },
+  {
+    "slug": "docker",
+    "label": "Docker",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-plain.svg",
+    "bytes": 962
+  },
+  {
+    "slug": "kubernetes",
+    "label": "Kubernetes",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg",
+    "bytes": 4511
+  },
+  {
+    "slug": "amazonwebservices",
+    "label": "AWS",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+    "bytes": 3755
+  },
+  {
+    "slug": "zoho",
+    "label": "Zoho CRM",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/zoho.svg",
+    "bytes": 2636
+  },
+  {
+    "slug": "figma",
+    "label": "Figma",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/figma/figma-plain.svg",
+    "bytes": 462
+  },
+  {
+    "slug": "illustrator",
+    "label": "Illustrator",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/illustrator/illustrator-plain.svg",
+    "bytes": 1017
+  },
+  {
+    "slug": "photoshop",
+    "label": "Photoshop",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-plain.svg",
+    "bytes": 2227
+  },
+  {
+    "slug": "threedsmax",
+    "label": "Autodesk 3ds Max",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/threedsmax/threedsmax-plain.svg",
+    "bytes": 1107
+  },
+  {
+    "slug": "autocad",
+    "label": "AutoCAD",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/autocad.svg",
+    "bytes": 468
+  },
+  {
+    "slug": "coreldraw",
+    "label": "CorelDRAW",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/coreldraw.svg",
+    "bytes": 986
+  },
+  {
+    "slug": "php",
+    "label": "PHP",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-plain.svg",
+    "bytes": 1286
+  },
+  {
+    "slug": "mysql",
+    "label": "MySQL",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg",
+    "bytes": 2765
+  },
+  {
+    "slug": "phpmyadmin",
+    "label": "phpMyAdmin",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/phpmyadmin.svg",
+    "bytes": 945
+  },
+  {
+    "slug": "postgresql",
+    "label": "PostgreSQL",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-plain.svg",
+    "bytes": 11441
+  },
+  {
+    "slug": "typescript",
+    "label": "TypeScript",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-plain.svg",
+    "bytes": 866
+  },
+  {
+    "slug": "nextjs",
+    "label": "Next.js",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-plain.svg",
+    "bytes": 318
+  },
+  {
+    "slug": "supabase",
+    "label": "Supabase",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/supabase/supabase-plain.svg",
+    "bytes": 494
+  },
+  {
+    "slug": "n8n",
+    "label": "n8n",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/n8n.svg",
+    "bytes": 1573
+  },
+  {
+    "slug": "vscode",
+    "label": "VS Code",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-plain.svg",
+    "bytes": 551
+  },
+  {
+    "slug": "apache",
+    "label": "Apache",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/apache/apache-plain.svg",
+    "bytes": 2008
+  },
+  {
+    "slug": "nginx",
+    "label": "Nginx",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/nginx/nginx-original.svg",
+    "bytes": 1094
+  },
+  {
+    "slug": "xml",
+    "label": "XML",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/xml/xml-plain.svg",
+    "bytes": 3285
+  }
+]

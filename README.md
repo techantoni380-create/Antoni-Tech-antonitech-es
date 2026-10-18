@@ -2,7 +2,7 @@
 
 Proyecto completo listo para GitHub Pages. Versión del 18 de octubre de 2026.
 
-Incluye nueve páginas, español e inglés, cabecera metálica, brillo del logo cada dos segundos, presentación de tres mensajes, vídeo de cinco segundos, servicios, proyectos, redes sociales y contacto.
+Incluye nueve páginas, español e inglés, cabecera metálica, brillo del logo cada dos segundos, presentación de tres mensajes, lista de 21 vídeos en bucle, servicios, proyectos, redes sociales y contacto.
 
 ## 1. Subir al repositorio
 
@@ -55,7 +55,7 @@ Guía oficial: https://docs.github.com/en/pages/configuring-a-custom-domain-for-
 - `assets/site.css`: estilos generales.
 - `assets/minimal.css`: cabecera, presentación minimalista y pulso de luz.
 - `assets/site.js`: idioma, presentación, filtros, vídeo y contacto.
-- `assets/antoni-tech-5s.mp4`: vídeo de cinco segundos.
+- `assets/brand-films/`: 21 vídeos optimizados, portada y orden de reproducción en `playlist.json`.
 - `_source/build_site.py`: plantillas y contenido reutilizable, con salida en la raíz del proyecto.
 - `_source/check_site.py`: comprobación de enlaces, recursos y estructura.
 
@@ -87,3 +87,66 @@ Comprobaciones realizadas: nueve páginas, enlaces internos, recursos, traduccio
 Logo y vídeo: materiales aportados por Yonathan Alvarado. Cabecera: edición del diseño aprobado. Imágenes de proyectos: recursos de almazara.ch, todosconhernan.com y la web de Edis Alvarado facilitadas en el proyecto. La composición de Studi1 representa un diseño en desarrollo.
 
 Las fuentes Barlow Condensed y Manrope se incluyen localmente con sus licencias OFL en `assets`.
+
+
+## Actualización: vistas web interactivas
+
+En Inicio y Proyectos, las tarjetas de ALMAZARA y Todos con Hernán contienen la web real. Permiten desplazarse y navegar dentro del recuadro. «Ampliar» abre la misma vista en un diálogo grande; «Volver al recuadro» o Escape la reducen conservando la navegación. «Abrir web» permite visitar el sitio directamente. En móvil, la vista ampliada usa el diseño responsive de la web.
+
+Las vistas se cargan con lazy loading. Dependen de la disponibilidad de las webs externas y de que estas permitan su integración. Si una web cambia su política o no se muestra, usa «Abrir web». Las cabeceras consultadas el 18/10/2026 no bloquearon la integración; no se ha realizado una prueba visual en navegador.
+
+Para actualizar el proyecto existente, extrae el ZIP y copia su contenido en la carpeta del repositorio, sustituyendo los archivos con el mismo nombre. No crees otro repositorio. En GitHub Desktop, revisa los cambios, pulsa Commit to main y después Push origin. Conserva la configuración actual de Pages y del dominio.
+
+
+## Cinta de tecnologías
+
+La cabecera de las nueve páginas se organiza en tres filas: logo y redes, cinta de tecnologías y menú. La cinta muestra directamente las tecnologías, sin título visible y con márgenes laterales iguales. Los 37 logos y sus nombres se muestran en blanco puro, en celdas del mismo ancho y con separación uniforme. Incluye Autodesk 3ds Max, AutoCAD, CorelDRAW y PrestaShop. El carrusel se desplaza continuamente en bucle, sin botón de pausa ni interrupción al pasar el cursor o usar el teclado. El movimiento de esta cinta se mantiene siempre activo según el diseño solicitado. Las dimensiones de la cabecera y los márgenes se adaptan a móvil, tableta y ordenador. Fuentes y licencias de los SVG: assets/technologies/.
+
+
+## Menú y vista local
+
+Los enlaces internos incluyen index.html para navegar abriendo el archivo principal con doble clic, además de funcionar en GitHub Pages. Se conservan los parámetros del formulario de contacto y los enlaces a secciones.
+
+El menú queda blanco en reposo. Al pasar el cursor, enfocar con el teclado o visitar la página, Inicio, Servicios, Sobre mí y Hablemos se muestran en cian, y Proyectos en fucsia. Cada enlace tiene un subrayado del mismo color. La cinta muestra un resplandor suave cian y fucsia al pasar el cursor, sin pausar su desplazamiento.
+
+
+## Ajuste de la portada
+
+La portada crece con su contenido. La firma y los controles de la presentación ocupan su propia fila después de los botones, con separación vertical, para evitar solapamientos al cambiar de mensaje o tamaño de pantalla.
+
+
+## Galería de proyectos y servicios
+
+Inicio incluye los cuatro proyectos en una galería con flechas, contador y navegación mediante teclado. Se muestran dos por vista en escritorio y uno en móvil. La galería no avanza automáticamente; las webs de ALMAZARA y Todos con Hernán mantienen su navegación y la opción Ampliar. Studi1 aparece identificado como diseño en desarrollo. El enlace «Creemos el tuyo» abre WhatsApp.
+
+Los seis servicios se presentan con iconos, beneficios y enlaces a su información completa. Se conservan los idiomas español e inglés.
+
+
+## Proceso y consulta gratuita
+
+Las flechas de la galería están a ambos lados de las vistas en ordenador y debajo en móvil. Inicio y Servicios explican cuatro pasos: consulta gratuita, propuesta a medida, diseño y desarrollo, y pruebas y lanzamiento. La consulta y el asesoramiento se presentan como totalmente gratuitos y personalizados. El botón de consulta prepara un mensaje específico en WhatsApp al número configurado, en español o inglés.
+
+
+## Yonathan y los vídeos de Antoni Tech
+
+Inicio presenta «Detrás de los proyectos de Antoni Tech» y una reseña breve de Yonathan Alvarado como Técnico en Sistemas Microinformáticos y Redes, desarrollador web full stack y programador. La biografía completa mantiene la formación DAW como formación en curso.
+
+Inicio y Sobre mí incluyen un reproductor con 21 vídeos distintos, optimizados a 1080p, conservando los fotogramas por segundo de cada original. Cada vídeo conserva su duración y su audio. Se reproducen en orden y, al terminar el último, vuelve a empezar el primero. Las flechas permiten cambiar de vídeo; los botones personalizados permiten pausar, activar el sonido y ampliar a pantalla completa cuando el navegador lo permita, sin mostrar una línea de tiempo.
+
+El inicio automático es sin sonido y solo cuando el reproductor está visible. Se pausa al salir de pantalla o cambiar de pestaña; una pausa manual se conserva. Con movimiento reducido o ahorro de datos, el visitante inicia la reproducción. Si el navegador bloquea el inicio automático, puede pulsar Play. Solo se solicita el vídeo activo, no toda la lista.
+
+Para cambiar el orden o añadir vídeos, edita `assets/brand-films/playlist.json` y regenera las páginas. Usa MP4 H.264 con audio AAC; conserva los nombres de archivo sin espacios.
+
+
+## Reproductor ampliado y sin línea de tiempo
+
+El vídeo ocupa una fila propia, de lado a lado de la página, sin marco ni márgenes laterales, con relación 16:9. Se muestra completo, sin estirar ni recortar. La biografía aparece debajo. Los botones personalizados permiten avanzar, retroceder, pausar, activar el sonido y ampliar la vista en navegadores compatibles. En móvil los controles se reorganizan para caber en pantalla. Sin JavaScript quedan disponibles los controles nativos como alternativa.
+
+La secuencia contiene 21 vídeos únicos. Se han descartado las copias idénticas por su contenido, no solo por el nombre del archivo. Los cinco nuevos son Glitch Cyberpunk, Movimiento digital, Pixelado, Formas de neón y Capa circular 3D. Cada vídeo aparece una sola vez por vuelta; al terminar la lista vuelve al principio. Los archivos se conservan en Full HD a partir de los originales y solo se carga el vídeo activo.
+
+
+## El origen de Antoni Tech
+
+Inicio incluye una explicación breve del nombre junto a la presentación de Yonathan. Sobre mí desarrolla la historia: Antoni es la forma catalana de Antonio, su segundo nombre, que empezó a usar a raíz de cómo le llamaban en Cataluña; Tech representa su profesión y su pasión por la tecnología. El texto conecta esa historia con el trato directo y el compromiso con cada proyecto. Disponible en español e inglés.
+
+El reproductor tiene ancho completo también en Inicio y Sobre mí. El vídeo conserva su altura proporcional y los textos mantienen márgenes de lectura independientes.

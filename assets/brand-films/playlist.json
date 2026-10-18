@@ -1,0 +1,233 @@
+[
+  {
+    "file": "luz-led.mp4",
+    "es": "Luz LED",
+    "en": "LED light",
+    "source_name": "Logo de Luz LED_1080p.mp4",
+    "source_sha256": "d348c0ab019a374611c4d86f9b67ab540d7e87495f9c2747aedd4f94845fde39",
+    "duration": 8.0,
+    "bytes": 1925960,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "misterio-neon.mp4",
+    "es": "Misterio de neón",
+    "en": "Neon mystery",
+    "source_name": "Logo Reveal  Misterio de Nen_1080p.mp4",
+    "source_sha256": "9643d60e688efa413eebe90252ed886ae9bea5087f625deecf320a6d5431c866",
+    "duration": 15.018,
+    "bytes": 5602308,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "alta-tecnologia.mp4",
+    "es": "Alta tecnología",
+    "en": "High technology",
+    "source_name": "Intro Futurista de Alta Tecnologa_1080p.mp4",
+    "source_sha256": "a5b4a370c31016a96eab12aaa7dde4605a83bb610b5e72faa5309ca89c2a680c",
+    "duration": 8.0,
+    "bytes": 7717536,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "circuitos-digitales.mp4",
+    "es": "Circuitos digitales",
+    "en": "Digital circuits",
+    "source_name": "Logo  Lneas de Circuitos Digitales_1080p.mp4",
+    "source_sha256": "d6d148896d35def644576c3345310ff8b7cd02c1ce7248ac6ced5f03125e30a2",
+    "duration": 8.0,
+    "bytes": 4514445,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "high-tech.mp4",
+    "es": "High-Tech Circuit",
+    "en": "High-Tech Circuit",
+    "source_name": "HighTech Circuit Intro_1080p.mp4",
+    "source_sha256": "97347a94cbe74eca4b35f3465cc788381f9606f751d0fe6d1549a048df34a86a",
+    "duration": 12.01,
+    "bytes": 12280392,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "reforma-tecnologica.mp4",
+    "es": "Reforma tecnológica",
+    "en": "Technological transformation",
+    "source_name": "Logo  Reforma Tecnolgica_1080p (1)(1).mp4",
+    "source_sha256": "d01ede5c7f41583b9848c3846a906a2bb025d6c3fa05299ed85f31342177d700",
+    "duration": 16.0,
+    "bytes": 9330751,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "nube.mp4",
+    "es": "Informática y nube",
+    "en": "Computing & cloud",
+    "source_name": "Intro  Informtica y Alojamiento en la Nube_1080p.mp4",
+    "source_sha256": "846d00e518917306dde955afe3ecfe6718c9e47e9a32244980da7ce7364dfc83",
+    "duration": 15.018,
+    "bytes": 12033137,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "holograma.mp4",
+    "es": "Holograma colorido",
+    "en": "Colourful hologram",
+    "source_name": "Logo Reveal  Holograma Colorido_1080p.mp4",
+    "source_sha256": "991df7fade4bff9d025c6b0de88301ca48539089b6ff93a49933b2910b8e6880",
+    "duration": 7.018,
+    "bytes": 2609130,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "esfera-futurista.mp4",
+    "es": "Esfera futurista",
+    "en": "Futuristic sphere",
+    "source_name": "Logo  Esfera Futurista_1080p.mp4",
+    "source_sha256": "d0744e35c26bfbc1d7b3770911c4d7e2b4eb1896331241df41bd7b3f2a2ca396",
+    "duration": 18.005,
+    "bytes": 8420809,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "esfera-capas.mp4",
+    "es": "Esfera en capas",
+    "en": "Layered sphere",
+    "source_name": "Logo Reveal de Esfera en Capas_1080p.mp4",
+    "source_sha256": "256e4798e1f33f0cba48c3a2caddeedcaef99249a9626b34c3a1aebf25bd6bd1",
+    "duration": 8.0,
+    "bytes": 1367627,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "activacion.mp4",
+    "es": "Activación tecnológica",
+    "en": "Technology activation",
+    "source_name": "Logo Activacin Tecnolgica_1080p.mp4",
+    "source_sha256": "f6a04e3499eaa0aad82890c49563a295d9e09cb02bd5c8a00917cf5774bd4103",
+    "duration": 15.018,
+    "bytes": 10036754,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "arquitectonico.mp4",
+    "es": "Arquitectónico",
+    "en": "Architectural",
+    "source_name": "Logo Reveal Arquitectnico_1080p.mp4",
+    "source_sha256": "f9bb536ebccbe818c66db14d612c4d7f452549fce5963b51aafc7f9fb32587c5",
+    "duration": 11.008,
+    "bytes": 6088236,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "marmol.mp4",
+    "es": "Estética de mármol",
+    "en": "Marble aesthetics",
+    "source_name": "Logo  Esttica de Mrmol_1080p.mp4",
+    "source_sha256": "11360d4e42bb830f77512d3b631a83b3a68a7f9e86d9f06b02cc1aa117be82ba",
+    "duration": 15.018,
+    "bytes": 9083229,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "reaccion-cadena.mp4",
+    "es": "Reacción en cadena",
+    "en": "Chain reaction",
+    "source_name": "Logo Reaccin en Cadena_1080p.mp4",
+    "source_sha256": "59604a330d4861a928f4093051fe6ff553dbc4be66d851986c1dd0def1e8d296",
+    "duration": 12.01,
+    "bytes": 8475333,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "auto-cibernetico.mp4",
+    "es": "Auto cibernético",
+    "en": "Cybernetic car",
+    "source_name": "Logo Velocidad de Auto Ciberntico_1080p.mp4",
+    "source_sha256": "5d9e39e94aae93ced6d8555d85567889935a31ce839c219158f6c1732e639ecc",
+    "duration": 20.01,
+    "bytes": 10025728,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "robot-arana.mp4",
+    "es": "Robot araña",
+    "en": "Spider robot",
+    "source_name": "Intro de robot araa_1080p (1).mp4",
+    "source_sha256": "f66441d64246ff6aaad3185f314324daf2fad71fbb13165aa8f8793333f9132e",
+    "duration": 7.018,
+    "bytes": 3848057,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "glitch-cyberpunk.mp4",
+    "es": "Glitch Cyberpunk",
+    "en": "Cyberpunk glitch",
+    "source_name": "Logo Glitch Cyberpunk_1080p.mp4",
+    "source_sha256": "13f72f73c5f29b9c899f4ecb6bcc8658f026ec31b92642a8bd74a45675fe0652",
+    "duration": 5.013,
+    "bytes": 1704642,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "movimiento-digital.mp4",
+    "es": "Movimiento digital",
+    "en": "Digital motion",
+    "source_name": "Logo Movimiento Digital_1080p.mp4",
+    "source_sha256": "553a5ff6586551a7da225622dbb04ea0811af0427c8ea5aab7022ae17e7346ed",
+    "duration": 10.005,
+    "bytes": 3105019,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "pixelado.mp4",
+    "es": "Pixelado",
+    "en": "Pixel reveal",
+    "source_name": "Logo Reveal  Pixelado_1080p.mp4",
+    "source_sha256": "32ac2a5ce6836dc49f5593881435405a84c43d9d8c93bbc4ea353031196df7fe",
+    "duration": 15.018,
+    "bytes": 5416446,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "formas-neon.mp4",
+    "es": "Formas de neón",
+    "en": "Neon shapes",
+    "source_name": "Intro con formas dinmicas de nen_1080p.mp4",
+    "source_sha256": "e5d8442634b96c03ae81d7a654a403a2338d3f54a4b046c4ada79f55887b95e7",
+    "duration": 5.013,
+    "bytes": 1538348,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "capa-circular-3d.mp4",
+    "es": "Capa circular 3D",
+    "en": "3D circular layer",
+    "source_name": "Intro de Capa 3D Circular_1080p.mp4",
+    "source_sha256": "f903bd38082f44c0125638b83a069ebd76a338a0a56cdc89fc13972301ab4650",
+    "duration": 7.018,
+    "bytes": 6002501,
+    "width": 1920,
+    "height": 1080
+  }
+]

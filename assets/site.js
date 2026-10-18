@@ -23,9 +23,63 @@
     });
     updateFilterStatus();
     updateMotionLabel();
+    updateGalleryStatus();
+    brandPlayers.forEach(player => player.refreshCaption());
   }
 
   document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+
+  // Keep each iframe in its original DOM position so browsing survives expansion.
+  document.querySelectorAll('.project-browser').forEach(browser => {
+    const slot = browser.parentElement;
+    const viewport = browser.querySelector('.browser-viewport');
+    const frame = browser.querySelector('iframe');
+    const toggle = browser.querySelector('.browser-expand');
+    let expanded = false;
+
+    function fitPreview() {
+      const width = viewport.clientWidth;
+      const height = viewport.clientHeight;
+      if (!width || !height) return;
+      const pageWidth = expanded ? width : Math.max(1100, width);
+      const scale = width / pageWidth;
+      frame.style.width = `${pageWidth}px`;
+      frame.style.height = `${Math.ceil(height / scale)}px`;
+      frame.style.transform = `scale(${scale})`;
+    }
+
+    function setExpanded(next) {
+      if (next === expanded) return;
+      if (next) slot.style.height = `${browser.getBoundingClientRect().height}px`;
+      // Changing dialog mode never moves, replaces or reloads the live iframe.
+      browser.close();
+      expanded = next;
+      browser.classList.toggle('is-expanded', expanded);
+      toggle.setAttribute('aria-expanded', String(expanded));
+      document.body.classList.toggle('project-preview-open', expanded);
+      if (expanded) browser.showModal();
+      else {
+        browser.show();
+        slot.style.height = '';
+      }
+      fitPreview();
+      toggle.focus({ preventScroll: true });
+    }
+
+    toggle.addEventListener('click', () => setExpanded(!expanded));
+    browser.addEventListener('cancel', event => {
+      event.preventDefault();
+      setExpanded(false);
+    });
+    browser.addEventListener('click', event => {
+      if (!expanded || event.target !== browser) return;
+      const box = browser.getBoundingClientRect();
+      if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) setExpanded(false);
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(fitPreview).observe(viewport);
+    window.addEventListener('resize', fitPreview);
+    fitPreview();
+  });
 
   const videoDialog = document.getElementById('video-dialog');
   const video = document.getElementById('brand-video');
@@ -137,6 +191,191 @@
     cards.forEach(card => { card.hidden = button.dataset.filter !== 'all' && card.dataset.category !== button.dataset.filter; });
     updateFilterStatus();
   }));
+
+  // The gallery moves only on request; live iframe browsing is never interrupted.
+  const projectGallery = document.getElementById('project-gallery');
+  const galleryCards = projectGallery ? [...projectGallery.querySelectorAll('.project-card')] : [];
+  const galleryPrevious = document.querySelector('[data-project-prev]');
+  const galleryNext = document.querySelector('[data-project-next]');
+  function galleryState() {
+    const visible = Number(getComputedStyle(projectGallery).getPropertyValue('--gallery-visible')) || 1;
+    const step = galleryCards.length > 1 ? galleryCards[1].offsetLeft - galleryCards[0].offsetLeft : projectGallery.clientWidth;
+    const lastStart = Math.max(0, galleryCards.length - visible);
+    const first = Math.max(0, Math.min(lastStart, Math.round(projectGallery.scrollLeft / Math.max(1, step))));
+    return { first, visible, lastStart };
+  }
+  function updateGalleryStatus() {
+    if (!projectGallery || !galleryCards.length) return;
+    const { first, visible, lastStart } = galleryState();
+    const last = Math.min(first + visible, galleryCards.length);
+    galleryPrevious.disabled = first === 0;
+    galleryNext.disabled = first === lastStart;
+    const startText = String(first + 1).padStart(2, '0');
+    const endText = String(last).padStart(2, '0');
+    document.querySelector('[data-project-range]').textContent = first + 1 === last ? startText : `${startText}–${endText}`;
+    const status = document.getElementById('gallery-status');
+    const description = language === 'es'
+      ? `Proyectos ${first + 1}${last > first + 1 ? ` a ${last}` : ''} de ${galleryCards.length}.`
+      : `Projects ${first + 1}${last > first + 1 ? ` to ${last}` : ''} of ${galleryCards.length}.`;
+    if (status.textContent !== description) status.textContent = description;
+  }
+  function moveGallery(direction) {
+    const { first, lastStart } = galleryState();
+    const target = direction === 'first' ? 0 : direction === 'last' ? lastStart : Math.max(0, Math.min(lastStart, first + direction));
+    projectGallery.scrollTo({
+      left: galleryCards[target].offsetLeft - galleryCards[0].offsetLeft,
+      behavior: reducedMotion.matches ? 'instant' : 'smooth'
+    });
+  }
+  if (projectGallery && galleryCards.length) {
+    galleryPrevious.addEventListener('click', () => moveGallery(-1));
+    galleryNext.addEventListener('click', () => moveGallery(1));
+    let galleryFrame = null;
+    projectGallery.addEventListener('scroll', () => {
+      if (galleryFrame !== null) return;
+      galleryFrame = requestAnimationFrame(() => { galleryFrame = null; updateGalleryStatus(); });
+    }, { passive: true });
+    projectGallery.addEventListener('keydown', event => {
+      if (event.target !== projectGallery) return;
+      const direction = { ArrowLeft: -1, ArrowRight: 1, Home: 'first', End: 'last' }[event.key];
+      if (direction === undefined) return;
+      event.preventDefault();
+      moveGallery(direction);
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(updateGalleryStatus).observe(projectGallery);
+    window.addEventListener('resize', updateGalleryStatus);
+    updateGalleryStatus();
+  }
+
+  // Only the current brand film loads; manual pause survives scrolling away.
+  const brandPlayers = [...document.querySelectorAll('[data-brand-showreel]')].map(figure => {
+    const video = figure.querySelector('video');
+    const clips = [...figure.querySelectorAll('[data-brand-playlist] a')];
+    const title = figure.querySelector('[data-brand-title]');
+    const count = figure.querySelector('[data-brand-count]');
+    const notice = figure.querySelector('[data-brand-notice]');
+    const playButton = figure.querySelector('[data-brand-play]');
+    const soundButton = figure.querySelector('[data-brand-sound]');
+    const fullscreenButton = figure.querySelector('[data-brand-fullscreen]');
+    let index = 0;
+    let visible = !('IntersectionObserver' in window);
+    let wantsPlayback = !reducedMotion.matches && !navigator.connection?.saveData;
+    let ignoredPauseEvents = 0;
+    let revision = 0;
+    video.loop = false;
+    video.muted = true;
+    video.controls = false;
+    figure.querySelector('[data-brand-toolbar]').hidden = false;
+    fullscreenButton.hidden = !figure.requestFullscreen || !document.fullscreenEnabled;
+
+    function refreshControls() {
+      const playing = !video.paused && !video.ended;
+      const silent = video.muted || video.volume === 0;
+      const fullscreen = document.fullscreenElement === figure;
+      playButton.dataset.playing = String(playing);
+      playButton.setAttribute('aria-label', language === 'es' ? (playing ? 'Pausar vídeo' : 'Reproducir vídeo') : (playing ? 'Pause video' : 'Play video'));
+      soundButton.dataset.muted = String(silent);
+      soundButton.setAttribute('aria-pressed', String(!silent));
+      soundButton.setAttribute('aria-label', language === 'es' ? (silent ? 'Activar sonido' : 'Silenciar vídeo') : (silent ? 'Turn sound on' : 'Mute video'));
+      fullscreenButton.setAttribute('aria-label', language === 'es' ? (fullscreen ? 'Salir de pantalla completa' : 'Pantalla completa') : (fullscreen ? 'Exit fullscreen' : 'Fullscreen'));
+    }
+    function refreshCaption() {
+      title.textContent = clips[index].dataset[language];
+      count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(clips.length).padStart(2, '0')}`;
+      refreshControls();
+    }
+    function pauseInternally() {
+      if (!video.paused) {
+        ignoredPauseEvents += 1;
+        video.pause();
+      }
+    }
+    function playIfVisible() {
+      if (!wantsPlayback || !visible || document.hidden) return;
+      const attempt = revision;
+      const playing = video.play();
+      playing?.catch(error => {
+        // Autoplay restrictions leave the custom Play button available.
+        if (attempt === revision && error.name === 'NotAllowedError') {
+          wantsPlayback = false;
+          refreshControls();
+        }
+      });
+    }
+    function selectClip(next, fromUser = false) {
+      pauseInternally();
+      revision += 1;
+      index = (next + clips.length) % clips.length;
+      if (fromUser) wantsPlayback = true;
+      notice.hidden = true;
+      video.src = clips[index].href;
+      video.load();
+      refreshCaption();
+      playIfVisible();
+    }
+    video.addEventListener('play', () => {
+      wantsPlayback = true;
+      if (!visible || document.hidden) pauseInternally();
+      refreshControls();
+    });
+    video.addEventListener('pause', () => {
+      if (ignoredPauseEvents > 0) ignoredPauseEvents -= 1;
+      else if (!video.ended) wantsPlayback = false;
+      refreshControls();
+    });
+    video.addEventListener('ended', () => selectClip(index + 1));
+    video.addEventListener('error', () => {
+      wantsPlayback = false;
+      notice.hidden = false;
+      pauseInternally();
+    });
+    figure.querySelector('[data-brand-prev]').addEventListener('click', () => selectClip(index - 1, true));
+    figure.querySelector('[data-brand-next]').addEventListener('click', () => selectClip(index + 1, true));
+    playButton.addEventListener('click', () => {
+      if (video.paused || video.ended) {
+        wantsPlayback = true;
+        playIfVisible();
+      } else {
+        wantsPlayback = false;
+        video.pause();
+      }
+      refreshControls();
+    });
+    soundButton.addEventListener('click', () => {
+      const silent = video.muted || video.volume === 0;
+      if (video.volume === 0) video.volume = 1;
+      video.muted = !silent;
+      refreshControls();
+    });
+    video.addEventListener('volumechange', refreshControls);
+    document.addEventListener('fullscreenchange', refreshControls);
+    fullscreenButton.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement === figure) await document.exitFullscreen();
+        else await figure.requestFullscreen();
+      } catch (_) { /* The player remains usable if fullscreen is unavailable. */ }
+      refreshControls();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        if (visible) playIfVisible();
+        else pauseInternally();
+      }, { threshold: 0 }).observe(video);
+    } else playIfVisible();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseInternally();
+      else playIfVisible();
+    });
+    reducedMotion.addEventListener('change', event => {
+      if (event.matches) {
+        wantsPlayback = false;
+        pauseInternally();
+      }
+    });
+    refreshCaption();
+    return { refreshCaption };
+  });
 
   const form = document.getElementById('contact-form');
   if (form) {
