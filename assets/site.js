@@ -148,7 +148,8 @@
       ? (paused ? 'REANUDAR PRESENTACIÓN' : 'PAUSAR PRESENTACIÓN')
       : (paused ? 'RESUME SLIDESHOW' : 'PAUSE SLIDESHOW');
     motionButton.querySelector('.sr-only').textContent = label;
-    motionButton.lastElementChild.textContent = paused ? '▷' : 'Ⅱ';
+    motionButton.lastElementChild.textContent = ['I','II','III'][activeSlide];
+    motionButton.title = label;
     motionButton.setAttribute('aria-label', label);
     motionButton.setAttribute('aria-pressed', String(paused));
     document.body.classList.toggle('motion-paused', paused);
@@ -194,6 +195,7 @@
     hero.querySelectorAll('[data-hero-line]').forEach((line, i) => writeSlideText(line, slide.es[i], slide.en[i]));
     writeSlideText(hero.querySelector('[data-hero-description]'), ...slide.description);
     slideButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === activeSlide)));
+    updateMotionLabel();
     if (announce) document.getElementById('slide-status').textContent = language === 'es'
       ? `Presentación ${activeSlide + 1} de 3: ${slide.es.join(' ')}`
       : `Slide ${activeSlide + 1} of 3: ${slide.en.join(' ')}`;
