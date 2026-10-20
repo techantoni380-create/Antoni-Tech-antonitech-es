@@ -527,7 +527,7 @@
   let width = 0, height = 0, frame = 0, previous = null;
   let masks = [], masksUpdated = -Infinity, halo = null;
   const allowed = () => finePointer.matches && !reducedMotion.matches && !document.hidden;
-  const protectedSelector = 'h1,h2,h3,h4,h5,h6,p,a,button,input,textarea,select,label,summary,iframe,.project-browser,.hero-content,.hero-bottom,.site-header,.site-footer,.assistant-root,dialog[open]';
+  const protectedSelector = 'h1,h2,h3,h4,h5,h6,p,a,button,input,textarea,select,label,summary,iframe,.project-browser,.site-header,.site-footer,.assistant-root,dialog[open]';
 
   function resize() {
     width = window.innerWidth;
