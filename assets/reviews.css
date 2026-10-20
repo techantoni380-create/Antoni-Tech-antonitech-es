@@ -87,3 +87,19 @@ main .review-compose[open]>summary{border-radius:14px 14px 0 0}
 main .review-compose[open]>.review-compose-body{max-width:none;padding:26px 24px;border:1px solid #99d3ef;border-top:0;border-radius:0 0 14px 14px;background:#fff}
 @media(max-width:600px){main .review-compose>summary{padding:18px 16px;gap:12px}.review-invite-icon{width:36px;height:36px;font-size:25px}.review-invite-copy strong{font-size:16px}.review-invite-copy small{font-size:12px}main .review-compose[open]>.review-compose-body{padding:22px 16px}}
 @media(prefers-reduced-motion:reduce){main .review-compose>summary{transition:none}}
+
+/* A native sliding track keeps cards in place and supports touch swiping. */
+.reviews-carousel .reviews-grid{--review-visible:3;--review-gap:22px;display:flex;gap:var(--review-gap);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding-block:2px}
+.reviews-carousel .reviews-grid::-webkit-scrollbar{display:none}
+.reviews-carousel .review-card{flex:0 0 calc((100% - (var(--review-visible) - 1)*var(--review-gap))/var(--review-visible));height:390px;min-height:0;scroll-snap-align:start;scroll-snap-stop:always;box-sizing:border-box}
+.reviews-carousel .review-card-stars,.reviews-carousel .review-card-footer,.reviews-carousel .review-card time{flex:none}
+.reviews-carousel .review-card-footer{margin-top:0}
+.reviews-carousel .review-card blockquote{flex:1;min-height:0;margin:18px 0 22px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin;scrollbar-color:#8ebbd4 #edf5fa;scrollbar-gutter:stable;padding-right:9px}
+.reviews-carousel .review-card blockquote::-webkit-scrollbar{width:6px}
+.reviews-carousel .review-card blockquote::-webkit-scrollbar-thumb{background:#8ebbd4;border-radius:8px}
+.reviews-carousel .review-card blockquote::-webkit-scrollbar-track{background:#edf5fa;border-radius:8px}
+.reviews-carousel .review-card blockquote:focus-visible{outline:2px solid #0087c4;outline-offset:4px;border-radius:3px}
+@media(max-width:1100px){.reviews-carousel .reviews-grid{--review-gap:16px}}
+@media(max-width:960px){.reviews-carousel .reviews-grid{--review-visible:2}}
+@media(max-width:600px){.reviews-carousel .reviews-grid{--review-visible:1}.reviews-carousel .review-card{height:370px}}
+@media(prefers-reduced-motion:reduce){.reviews-carousel .reviews-grid{scroll-behavior:auto}}
