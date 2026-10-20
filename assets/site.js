@@ -511,6 +511,10 @@
 // Antoni Tech: an original, pointer-driven ASCII wake inspired by the supplied reference.
 (() => {
   if (document.getElementById('antoni-ascii-wake')) return;
+  const aboutPage = /\/sobre-mi(?:\/index\.html|\/|\.html)?$/.test(window.location.pathname);
+  const scope = aboutPage ? document.body :
+    document.body.classList.contains('home-page') ? document.querySelector('main #seleccion') : null;
+  if (!scope) return;
   const finePointer = window.matchMedia('(any-pointer: fine)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const canvas = document.createElement('canvas');
@@ -571,6 +575,10 @@
     frame = 0;
     if (!allowed()) { reset(); return; }
     ctx.clearRect(0, 0, width, height);
+    if (!aboutPage) {
+      const box = scope.getBoundingClientRect();
+      canvas.style.clipPath = `inset(${Math.max(0, box.top)}px ${Math.max(0, width - box.right)}px ${Math.max(0, height - box.bottom)}px ${Math.max(0, box.left)}px)`;
+    }
     if (halo) {
       const opacity = Math.max(0, 1 - (now - halo.at) / 900);
       if (opacity) {
@@ -597,8 +605,8 @@
   function move(event) {
     if (!allowed() || event.pointerType === 'touch') return;
     if (!(event.target instanceof Element)) return;
-    if (!event.target.closest('main') || event.target.closest('.project-browser,dialog,.assistant-root')) {
-      previous = null;
+    if (!scope.contains(event.target) || event.target.closest('.project-browser,dialog,.assistant-root')) {
+      reset();
       return;
     }
     const now = performance.now(), x = event.clientX, y = event.clientY;
