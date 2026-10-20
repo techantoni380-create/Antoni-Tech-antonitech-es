@@ -13,12 +13,37 @@ if(section){
   const listStatus=section.querySelector('[data-reviews-list-status]');
   const direct=Boolean(config.endpoint && config.publishableKey);
   const words=(es,en)=>document.documentElement.lang==='en'?en:es;
-  let rows=[], allRows=[], summary={count:0,average:null}, offset=0, hasMore=false;
+  let rows=[], summary={count:0,average:null}, offset=0;
   let loading=false, sending=false, listError=false, submissionId=crypto.randomUUID();
-  let formState='', preparedUrl='';
+  let formState='', preparedUrl='', refreshing=false, inView=false, lastLoaded=0;
   const node=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
 
+  const compact=window.matchMedia('(max-width:600px)');
+  const tablet=window.matchMedia('(max-width:960px)');
+  const pageSize=()=>compact.matches?1:tablet.matches?2:3;
+  const carousel=node('div',undefined,'reviews-carousel');
+  const previous=node('button','‹','reviews-arrow reviews-arrow-previous');
+  const next=node('button','›','reviews-arrow reviews-arrow-next');
+  const counter=node('p',undefined,'reviews-total');
+  previous.type=next.type='button';
+  list.id='reviews-carousel-list';
+  list.tabIndex=0;
+  previous.setAttribute('aria-controls',list.id);next.setAttribute('aria-controls',list.id);
+  counter.setAttribute('data-reviews-total','');
+  counter.setAttribute('aria-live','polite');counter.setAttribute('aria-atomic','true');
+  list.before(carousel);carousel.append(previous,list,next);
+  more.parentElement.replaceWith(counter);
+
+  const invite=section.querySelector('.review-compose > summary');
+  const inviteIcon=node('span','☆','review-invite-icon');inviteIcon.setAttribute('aria-hidden','true');
+  const inviteCopy=node('div',undefined,'review-invite-copy');
+  const inviteTitle=node('strong'),inviteHint=node('small');inviteCopy.append(inviteTitle,inviteHint);
+  const invitePlus=node('span','＋','review-invite-plus');invitePlus.setAttribute('aria-hidden','true');
+  invite.replaceChildren(inviteIcon,inviteCopy,invitePlus);
+
   function render(){
+    inviteTitle.textContent=words('Dejar mi opinión','Leave a review');
+    inviteHint.textContent=words('Pulsa aquí para valorar con estrellas y escribir tu comentario.','Click here to rate with stars and write your review.');
     list.replaceChildren();
     for(const review of rows){
       const card=node('article',undefined,'review-card');
@@ -38,9 +63,19 @@ if(section){
     }
     empty.hidden=rows.length>0||listError||loading;
     score.replaceChildren();score.hidden=!summary.count;
-    if(summary.count){score.append(node('strong',`${new Intl.NumberFormat(document.documentElement.lang,{minimumFractionDigits:1,maximumFractionDigits:1}).format(summary.average)} / 5`),node('small',words(`${summary.count} ${summary.count===1?'opinión publicada':'opiniones publicadas'}`,`${summary.count} published ${summary.count===1?'review':'reviews'}`)));}
-    more.hidden=!hasMore;more.disabled=loading;
-    listStatus.textContent=loading?words('Cargando opiniones…','Loading reviews…'):listError?words('No se han podido cargar las opiniones. Puedes volver a intentarlo recargando la página.','Reviews could not be loaded. Reload the page to try again.'):'';
+    if(summary.count){score.append(node('strong',`${new Intl.NumberFormat(document.documentElement.lang,{minimumFractionDigits:1,maximumFractionDigits:1}).format(summary.average)} / 5`));}
+    previous.setAttribute('aria-label',words('Opiniones anteriores','Previous reviews'));
+    next.setAttribute('aria-label',words('Opiniones siguientes','Next reviews'));
+    list.setAttribute('aria-label',words('Opiniones publicadas','Published reviews'));
+    list.setAttribute('aria-busy',String(loading&&!refreshing));
+    previous.hidden=next.hidden=summary.count<=pageSize();
+    previous.disabled=loading||offset===0;
+    next.disabled=loading||offset+rows.length>=summary.count||!rows.length;
+    counter.hidden=!summary.count;
+    const first=offset+1,last=offset+rows.length;
+    const range=first===last?String(first):`${first}–${last}`;
+    counter.textContent=summary.count?words(`${range} de ${summary.count} ${summary.count===1?'comentario':'comentarios'}`,`${range} of ${summary.count} ${summary.count===1?'review':'reviews'}`):'';
+    listStatus.textContent=loading&&!refreshing?words('Cargando opiniones…','Loading reviews…'):listError?words('No se han podido cargar las opiniones. Puedes volver a intentarlo recargando la página.','Reviews could not be loaded. Reload the page to try again.'):'';
   }
 
   function updateForm(){
@@ -59,25 +94,56 @@ if(section){
     if(formState==='prepared'&&preparedUrl){const link=node('a',words(' Abrir WhatsApp ↗',' Open WhatsApp ↗'));link.href=preparedUrl;link.target='_blank';link.rel='noopener noreferrer';status.append(link);}
   }
 
-  async function loadReviews(){
-    if(loading)return;loading=true;listError=false;render();
+  async function loadReviews(nextOffset=offset,quiet=false){
+    if(loading)return;
+    loading=true;refreshing=quiet;listError=false;render();
+    const size=pageSize();
     try{
+      let batch,nextSummary;
       if(direct){
-        const url=new URL(config.endpoint);url.searchParams.set('offset',String(offset));url.searchParams.set('limit',String(config.pageSize));
-        const response=await fetch(url,{headers:{apikey:config.publishableKey},credentials:'omit',signal:AbortSignal.timeout(12000)});
-        if(!response.ok)throw new Error('load');
-        const data=await response.json();
-        const batch=approvedReviews(data.reviews);
-        rows=approvedReviews([...rows,...batch]);offset+=batch.length;
-        if(!Number.isInteger(data.summary?.count)||data.summary.count<0||data.summary.count>0&&(!Number.isFinite(data.summary.average)||data.summary.average<1||data.summary.average>5))throw new Error('summary');
-        summary=data.summary;hasMore=data.hasMore===true && batch.length>0;
+        const read=async start=>{
+          const url=new URL(config.endpoint);url.searchParams.set('offset',String(start));url.searchParams.set('limit',String(size));
+          const response=await fetch(url,{headers:{apikey:config.publishableKey},credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(12000)});
+          if(!response.ok)throw new Error('load');
+          const data=await response.json();
+          if(!Number.isInteger(data.summary?.count)||data.summary.count<0||data.summary.count>0&&(!Number.isFinite(data.summary.average)||data.summary.average<1||data.summary.average>5))throw new Error('summary');
+          return data;
+        };
+        let data=await read(nextOffset);
+        const validOffset=Math.min(nextOffset,Math.max(0,data.summary.count-size));
+        if(validOffset!==nextOffset){nextOffset=validOffset;data=await read(nextOffset);}
+        batch=approvedReviews(data.reviews);nextSummary=data.summary;
+        if(nextSummary.count>0&&!batch.length)throw new Error('empty batch');
       }else{
-        if(!offset){const response=await fetch(new URL('./reviews-published.json',import.meta.url),{cache:'no-cache'});if(!response.ok)throw new Error('load');allRows=approvedReviews(await response.json());summary=reviewSummary(allRows);}
-        offset+=config.pageSize;rows=allRows.slice(0,offset);hasMore=offset<allRows.length;
+        const response=await fetch(new URL('./reviews-published.json',import.meta.url),{cache:'no-cache'});
+        if(!response.ok)throw new Error('load');
+        const allRows=approvedReviews(await response.json());nextSummary=reviewSummary(allRows);
+        nextOffset=Math.min(nextOffset,Math.max(0,nextSummary.count-size));batch=allRows.slice(nextOffset,nextOffset+size);
       }
-    }catch{listError=true;hasMore=false;}
-    finally{loading=false;render();}
+      rows=batch;summary=nextSummary;offset=nextOffset;lastLoaded=Date.now();
+    }catch{listError=true;}
+    finally{
+      loading=false;refreshing=false;render();
+      if(size!==pageSize())loadReviews(offset,true);
+    }
   }
+  previous.addEventListener('click',()=>loadReviews(Math.max(0,offset-pageSize())));
+  next.addEventListener('click',()=>loadReviews(Math.min(offset+pageSize(),Math.max(0,summary.count-pageSize()))));
+  list.addEventListener('keydown',event=>{
+    if(event.target!==list||!['ArrowLeft','ArrowRight'].includes(event.key))return;
+    event.preventDefault();const control=event.key==='ArrowLeft'?previous:next;
+    if(!control.hidden&&!control.disabled)control.click();
+  });
+  compact.addEventListener('change',()=>loadReviews(offset,true));
+  tablet.addEventListener('change',()=>loadReviews(offset,true));
+  const refresh=()=>{if(inView&&!document.hidden&&!sending&&Date.now()-lastLoaded>15000)loadReviews(offset,true);};
+  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{
+    inView=entries[0].isIntersecting;if(inView)refresh();
+  }).observe(section);
+  else inView=true;
+  window.setInterval(refresh,60000);
+  window.addEventListener('focus',refresh);
+  document.addEventListener('visibilitychange',refresh);
   form.addEventListener('input',()=>{formState='';preparedUrl='';submissionId=crypto.randomUUID();updateForm();});
   form.addEventListener('submit',async event=>{
     event.preventDefault();if(sending||!form.reportValidity())return;
@@ -95,7 +161,6 @@ if(section){
     }catch{formState='error';}
     finally{sending=false;updateForm();}
   });
-  more.addEventListener('click',loadReviews);
   new MutationObserver(()=>{render();updateForm();}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   updateForm();loadReviews();
 }
