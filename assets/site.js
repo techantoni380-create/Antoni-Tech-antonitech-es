@@ -519,15 +519,14 @@
   canvas.id = 'antoni-ascii-wake';
   canvas.setAttribute('aria-hidden', 'true');
   canvas.setAttribute('role', 'presentation');
-  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:3;contain:strict;';
+  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:20;contain:strict;';
 
   const cells = new Map();
   const glyphs = ['·', '-', '+', '>', '/', 'o'];
   const stepX = 12, stepY = 16, radius = 76, lifetime = 1650;
   let width = 0, height = 0, frame = 0, previous = null;
-  let masks = [], masksUpdated = -Infinity, halo = null;
+  let halo = null;
   const allowed = () => finePointer.matches && !reducedMotion.matches && !document.hidden;
-  const protectedSelector = 'h1,h2,h3,h4,h5,h6,p,a,button,input,textarea,select,label,summary,iframe,.project-browser,.site-header,.site-footer,.assistant-root,dialog[open]';
 
   function resize() {
     width = window.innerWidth;
@@ -547,20 +546,7 @@
     frame = 0;
     cells.clear();
     halo = previous = null;
-    masksUpdated = -Infinity;
     ctx.clearRect(0, 0, width, height);
-  }
-
-  function updateMasks(now) {
-    if (now - masksUpdated < 180) return;
-    masks = [];
-    document.querySelectorAll(protectedSelector).forEach(element => {
-      const box = element.getBoundingClientRect();
-      if (box.width && box.height && box.bottom > 0 && box.top < height) {
-        masks.push([box.left - 4, box.top - 3, box.width + 8, box.height + 6]);
-      }
-    });
-    masksUpdated = now;
   }
 
   function stamp(x, y, now, dark) {
@@ -585,12 +571,11 @@
     frame = 0;
     if (!allowed()) { reset(); return; }
     ctx.clearRect(0, 0, width, height);
-    updateMasks(now);
     if (halo) {
       const opacity = Math.max(0, 1 - (now - halo.at) / 900);
       if (opacity) {
         const glow = ctx.createRadialGradient(halo.x, halo.y, 0, halo.x, halo.y, 140);
-        glow.addColorStop(0, `rgba(40,180,245,${opacity * 0.10})`);
+        glow.addColorStop(0, `rgba(40,180,245,${opacity * 0.07})`);
         glow.addColorStop(1, 'rgba(40,180,245,0)');
         ctx.fillStyle = glow;
         ctx.fillRect(halo.x - 140, halo.y - 140, 280, 280);
@@ -600,13 +585,12 @@
       const age = (now - cell.at) / lifetime;
       if (age >= 1) { cells.delete(key); continue; }
       const fade = Math.pow(1 - Math.max(0, age), 1.6);
-      const alpha = cell.strength * fade * (cell.dark ? 0.75 : 0.64);
+      const alpha = cell.strength * fade * (cell.dark ? 0.60 : 0.42);
       ctx.fillStyle = cell.dark ? `rgba(204,248,255,${alpha})` : `rgba(0,116,184,${alpha})`;
       const glyph = age > 0.60 ? '·' : glyphs[(cell.seed + Math.floor(age * 3)) % glyphs.length];
       ctx.fillText(glyph, cell.x, cell.y);
     }
-    // Keep copy, controls, embedded websites and forms visually unobstructed.
-    masks.forEach(box => ctx.clearRect(...box));
+    // A transparent continuous overlay avoids rectangular cutouts around copy.
     if (cells.size) frame = requestAnimationFrame(draw);
   }
 
