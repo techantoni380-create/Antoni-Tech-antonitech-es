@@ -279,7 +279,9 @@
     const status = document.getElementById('filter-status');
     if (!status) return;
     const count = cards.filter(card => !card.hidden).length;
-    status.textContent = language === 'es' ? `${count} proyectos visibles` : `${count} projects shown`;
+    status.textContent = language === 'es'
+      ? `${count} ${count === 1 ? 'proyecto visible' : 'proyectos visibles'}`
+      : `${count} ${count === 1 ? 'project' : 'projects'} shown`;
   }
   filters.forEach(button => button.addEventListener('click', () => {
     filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
@@ -505,4 +507,134 @@
   }
   setLanguage(language);
   renderSlide(0);
+})();
+
+
+// Antoni Tech: an original, pointer-driven ASCII wake inspired by the supplied reference.
+(() => {
+  if (document.getElementById('antoni-ascii-wake')) return;
+  const aboutPage = /\/sobre-mi(?:\/index\.html|\/|\.html)?$/.test(window.location.pathname);
+  const scope = aboutPage ? document.body :
+    document.body.classList.contains('home-page') ? document.querySelector('main #seleccion') : null;
+  if (!scope) return;
+  const finePointer = window.matchMedia('(any-pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+  canvas.id = 'antoni-ascii-wake';
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.setAttribute('role', 'presentation');
+  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:20;contain:strict;';
+
+  const cells = new Map();
+  const glyphs = ['·', '-', '+', '>', '/', 'o'];
+  const stepX = 12, stepY = 16, radius = 76, lifetime = 1650;
+  let width = 0, height = 0, frame = 0, previous = null;
+  let halo = null;
+  const allowed = () => finePointer.matches && !reducedMotion.matches && !document.hidden;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    const scale = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * scale);
+    canvas.height = Math.round(height * scale);
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.font = '12px ui-monospace, SFMono-Regular, Consolas, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    reset();
+  }
+
+  function reset() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    cells.clear();
+    halo = previous = null;
+    ctx.clearRect(0, 0, width, height);
+  }
+
+  function stamp(x, y, now, dark) {
+    const column = Math.round(x / stepX), row = Math.round(y / stepY);
+    for (let dx = -6; dx <= 6; dx++) {
+      for (let dy = -5; dy <= 5; dy++) {
+        const px = (column + dx) * stepX, py = (row + dy) * stepY;
+        const distance = Math.hypot(px - x, py - y);
+        if (distance >= radius || px < 0 || py < 0 || px > width || py > height) continue;
+        const key = `${column + dx}:${row + dy}`;
+        const seed = Math.abs((column + dx) * 37 + (row + dy) * 19);
+        const strength = Math.pow(1 - distance / radius, 0.65);
+        if (seed % 7 === 0) continue;
+        cells.set(key, { x: px, y: py, at: now, strength, dark, seed });
+      }
+    }
+    // Bound work even during long, fast gestures on large screens.
+    while (cells.size > 1800) cells.delete(cells.keys().next().value);
+  }
+
+  function draw(now) {
+    frame = 0;
+    if (!allowed()) { reset(); return; }
+    ctx.clearRect(0, 0, width, height);
+    if (!aboutPage) {
+      const box = scope.getBoundingClientRect();
+      canvas.style.clipPath = `inset(${Math.max(0, box.top)}px ${Math.max(0, width - box.right)}px ${Math.max(0, height - box.bottom)}px ${Math.max(0, box.left)}px)`;
+    }
+    if (halo) {
+      const opacity = Math.max(0, 1 - (now - halo.at) / 900);
+      if (opacity) {
+        const glow = ctx.createRadialGradient(halo.x, halo.y, 0, halo.x, halo.y, 140);
+        glow.addColorStop(0, `rgba(40,180,245,${opacity * 0.07})`);
+        glow.addColorStop(1, 'rgba(40,180,245,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(halo.x - 140, halo.y - 140, 280, 280);
+      }
+    }
+    for (const [key, cell] of cells) {
+      const age = (now - cell.at) / lifetime;
+      if (age >= 1) { cells.delete(key); continue; }
+      const fade = Math.pow(1 - Math.max(0, age), 1.6);
+      const alpha = cell.strength * fade * (cell.dark ? 0.60 : 0.42);
+      ctx.fillStyle = cell.dark ? `rgba(204,248,255,${alpha})` : `rgba(0,116,184,${alpha})`;
+      const glyph = age > 0.60 ? '·' : glyphs[(cell.seed + Math.floor(age * 3)) % glyphs.length];
+      ctx.fillText(glyph, cell.x, cell.y);
+    }
+    // A transparent continuous overlay avoids rectangular cutouts around copy.
+    if (cells.size) frame = requestAnimationFrame(draw);
+  }
+
+  function move(event) {
+    if (!allowed() || event.pointerType === 'touch') return;
+    if (!(event.target instanceof Element)) return;
+    if (!scope.contains(event.target) || event.target.closest('.project-browser,dialog,.assistant-root')) {
+      reset();
+      return;
+    }
+    const now = performance.now(), x = event.clientX, y = event.clientY;
+    const hero = event.target.closest('.hero');
+    const dark = Boolean(hero && !hero.classList.contains('is-services'));
+    const distance = previous ? Math.hypot(x - previous.x, y - previous.y) : 0;
+    const steps = previous ? Math.min(12, Math.ceil(distance / 18)) : 1;
+    if (previous && distance < 2) return;
+    if (!canvas.isConnected) { document.body.append(canvas); resize(); }
+    for (let i = 1; i <= steps; i++) {
+      const progress = i / steps;
+      stamp(previous ? previous.x + (x - previous.x) * progress : x,
+        previous ? previous.y + (y - previous.y) * progress : y, now, dark);
+    }
+    previous = { x, y };
+    halo = { x, y, at: now };
+    if (!frame) frame = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('pointermove', move, { passive: true });
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('scroll', reset, { passive: true });
+  window.addEventListener('blur', reset);
+  document.addEventListener('pointerleave', () => { previous = null; });
+  document.addEventListener('visibilitychange', reset);
+  finePointer.addEventListener('change', reset);
+  reducedMotion.addEventListener('change', reset);
+  window.addEventListener('pagehide', reset);
 })();

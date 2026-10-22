@@ -1,0 +1,9 @@
+ACTUALIZACIÓN DE PROYECTOS · ANTONI TECH
+
+Incluye únicamente los cinco archivos modificados.
+Copia las carpetas y archivos en la raíz de tu proyecto existente, conservando sus rutas y sustituyendo esos archivos.
+Después publica los cambios con GitHub Desktop.
+
+Orden: Todos con Hernán, Almazara, Studi1, Edis Alvarado.
+Nuevo diseño a todo el ancho, filtros ES/EN y nueva imagen de Almazara.
+La página de inicio y las fichas individuales conservan su diseño.
